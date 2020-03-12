@@ -21,7 +21,7 @@ router.get('/:id', data_controller.data_details);
 //http://localhost:3000/data/id/update
 router.put('/:id/update', data_controller.data_update);
 
-//http://localhost:3000/data/delete
+//http://localhost:3000/data/id/delete
 router.delete('/:id/delete', data_controller.data_delete);
 
 module.exports = router;
