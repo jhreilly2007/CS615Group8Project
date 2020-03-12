@@ -1,9 +1,10 @@
 //This is the Controller in the MVC
 
 var Data = require('../models/dataModel');
+var User = require('../models/userModel');
 
 exports.test = function (request, response) {
-    response.send('Controller is working!');
+    response.send('Controller is working! <a href=\"http://localhost:3000\">Back to Home<\/a>');
 };
 
 //Create Database Entry
@@ -18,9 +19,9 @@ exports.data_create = function (request, response) {
     );
     data.save(function (err) {
         if (err) {
-            return next(err);
+            response.status(400).send(err + '<a href=\"http://localhost:3000\">Back to Home<\/a>');
         }
-        response.send('Data Entered Successfully')
+        response.send('Data Entered Successfully <a href=\"http://localhost:3000\">Back to Home<\/a>')
     })
 };
 
@@ -29,8 +30,8 @@ exports.data_create = function (request, response) {
 exports.data_details = function (request, response) {
  
     Data.findById(request.params.id, function (err, data) {
-        if (err) return next(err);
-        response.send(data);
+        if (err) response.status(400).send(err + ' <a href=\"http://localhost:3000\">Back to Home<\/a>');
+        response.send(data + ' <a href=\"http://localhost:3000\">Back to Home<\/a>');
     })
 };
 
@@ -39,8 +40,8 @@ exports.data_details = function (request, response) {
 exports.data_update = function (request, response) {
 
     Data.findByIdAndUpdate(request.params.id, {$set: request.body}, function (err, data) {
-        if (err) return next(err);
-        response.send('Data Successfully Updated');
+        if (err) response.status(400).send(err + ' <a href=\"http://localhost:3000\">Back to Home<\/a>');
+        response.send('Data Successfully Updated <a href=\"http://localhost:3000\">Back to Home<\/a>');
     });
 };
 
@@ -49,8 +50,10 @@ exports.data_update = function (request, response) {
 exports.data_delete = function (request, response) {
 
     Data.findByIdAndRemove(request.params.id, function (err) {
-        if (err) return next(err);
-        response.send('Deleted successfully!');
+        if (err) response.status(400).send(err +' <a href=\"http://localhost:3000\">Back to Home<\/a>');
+        response.send('Deleted successfully! <a href=\"http://localhost:3000\">Back to Home<\/a>');
     })
 };
+
+
 

@@ -18,6 +18,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/data', data);
+app.use('/user', data);
 
 // Send message for default URL
 app.use(express.static('view'));
