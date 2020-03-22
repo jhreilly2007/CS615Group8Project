@@ -19,9 +19,14 @@ exports.data_create = function (request, response) {
     );
     data.save(function (err) {
         if (err) {
-            response.status(400).send(err + '<a href=\"http://localhost:3000\">Back to Home<\/a>');
-        }
-        response.send('Data Entered Successfully <a href=\"http://localhost:3000\">Back to Home<\/a>')
+        response.status(400).send(err + '<a href=\"http://localhost:3000\">Back to Home<\/a>');
+       }else{
+        //response.send('Data Entered Successfully <a href=\"http://localhost:3000\">Back to Home<\/a>')
+        response.write("<script type='text/javascript'>");
+        response.write("alert('Successfully Added!');");
+        response.write("window.location='/';");
+        response.write("</script>");
+    }
     })
 };
 
