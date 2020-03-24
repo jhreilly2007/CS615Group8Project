@@ -17,7 +17,7 @@
   <div class="collapse navbar-collapse" id="main-navigation">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="/about.html">About</a>
+        <a class="nav-link" href="/about">About</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="modal" data-target="#signupModal">Sign up</a>
@@ -25,7 +25,7 @@
       <a href="#openModal" data-toggle="modal" data-target="#signupModal">Sign Up</button></p>-->
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="modal" data-target="#dataModal">Enter Data</a>
+        <a class="nav-link" href="/tasks">Tasks</a>
       </li>
     </ul>
   </div>
@@ -98,47 +98,6 @@
     </div>
   </div>
 </div>
-
-<!--modal to create a data entry-->
-<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create New Entry</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-        <form name="dataEntry" action="/data/create" method="post"> 
-          <div class="form-group">
-            <label for="name" class="col-form-label">Name:</label>
-            <input type="text" class="form-control" name="name">
-          </div>
-          <div class="form-group">
-            <label for="gender" class="col-form-label">Gender:</label>
-            <input type="text" class="form-control" name="gender">
-          </div>
-          <div class="form-group">
-            <label for="email" class="col-form-label">Email:</label>
-            <input type="text" class="form-control" name="email">
-          </div>
-          <div class="form-group">
-            <label for="phone" class="col-form-label">Phone:</label>
-            <input type="text" class="form-control" name="phone">
-          </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" value="send" >Submit</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
   
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

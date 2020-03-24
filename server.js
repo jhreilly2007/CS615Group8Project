@@ -3,6 +3,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var data = require('./routes/api-routes'); // Imports routes for the products
+var generaldata = require('./routes/general-routes');
 var app = express();
 var env = require('dotenv').config();
 
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/data', data);
 app.use('/user', data);
+app.use('/', generaldata);
 
 // Send message for default URL
 app.use(express.static('view'));

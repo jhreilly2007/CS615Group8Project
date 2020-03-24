@@ -30,6 +30,20 @@ body {
   position: relative;
 }
 
+.about {
+  background-image: url('../images/about.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.tasks {
+  background-image: url('../images/tasks.jpeg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
 .overlay {
   position: absolute;
   min-height: 100%;

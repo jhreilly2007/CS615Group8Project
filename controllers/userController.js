@@ -15,7 +15,7 @@ exports.user_auth = function (request, response) {
             //'<a href=\"http://localhost:3000\">Back to Home<\/a>' ONLY TEMP
             //needs to be removed
             response.status(400).send(err);
-        }
+        }else
         response.send('User Successfully created account <a href=\"http://localhost:3000\">Back to Home<\/a>')
     })
 };
