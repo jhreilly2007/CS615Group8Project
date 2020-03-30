@@ -1,4 +1,4 @@
-# CS615Group8Project
+# CS615GroupProject
 Class project for CS615
 
 to run : npm install
