@@ -21,7 +21,7 @@ exports.data_create = function (request, response) {
         if (err) {
         response.status(400).send(err + '<a href=\"http://localhost:3000\">Back to Home<\/a>');
        }else{
-        //response.send('Data Entered Successfully <a href=\"http://localhost:3000\">Back to Home<\/a>')
+        //This is all temporary for testing
         response.write("<script type='text/javascript'>");
         response.write("alert('Successfully Added!');");
         response.write("window.location='/tasks';");
@@ -31,7 +31,7 @@ exports.data_create = function (request, response) {
 };
 
 
-//Find by id
+//Find by id //responses are temporary for testing
 exports.data_details = function (request, response) {
  
     Data.findById(request.params.id, function (err, data) {
@@ -41,7 +41,7 @@ exports.data_details = function (request, response) {
 };
 
 
-//Update database function
+//Update database function //responses are temporary for testing
 exports.data_update = function (request, response) {
 
     Data.findByIdAndUpdate(request.params.id, {$set: request.body}, function (err, data) {
@@ -51,7 +51,7 @@ exports.data_update = function (request, response) {
 };
 
 
-//Delete Entry
+//Delete Entry //responses are temporary for testing
 exports.data_delete = function (request, response) {
 
     Data.findByIdAndRemove(request.params.id, function (err) {

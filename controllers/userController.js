@@ -1,6 +1,7 @@
 //This is the Controller in the MVC
 
 var User = require('../models/userModel');
+const path = require("path");
 
 //Authenticate User
 exports.user_auth = function (request, response) {
@@ -12,10 +13,9 @@ exports.user_auth = function (request, response) {
     );
     user.save(function (err) {
         if (err) {
-            //'<a href=\"http://localhost:3000\">Back to Home<\/a>' ONLY TEMP
-            //needs to be removed
             response.status(400).send(err);
-        }else
+        }else 
+        //responses are temporary for testing
         response.send('User Successfully created account <a href=\"http://localhost:3000\">Back to Home<\/a>')
     })
 };
@@ -35,10 +35,29 @@ exports.user_signin = function (request, response) {
             if(!isMatch) return response.status(400).json({
                 message : 'Wrong Password'
             });
-            response.status(200).send('Logged in successfully! <a href=\"http://localhost:3000\">Back to Home<\/a>')
+            request.session.user= {
+                  email: user.email,
+                  password: user.password
+            };
+            request.session.save();
+            //responses are temporary for testing
+            //response.send(request.session);//testing
+            response.redirect('/about');//should send to a personalised page
 
         })
     }
         
     })
+};
+
+//Logout & delete stored session data
+exports.user_logout = function (request, response) {
+    if(request.session.user) {
+        console.log(request.session.user)//just for testing
+        delete request.session.user;
+        response.redirect('/');//change routes as we develop
+    } else {
+        console.log('No session found')//just for testing
+        response.redirect('/');//change routes as we develop
+    }        
 };

@@ -1,10 +1,11 @@
 //This is the Model in the MVC
 
 var mongoose = require('mongoose');
-
+//requesta a schema
 var Schema = mongoose.Schema;
 
 // Setup userAuthentication Schema
+//should add username
 var UserSchema = new Schema({
     email: {type: String, required: true, unique: 1, trim: true},
     password: {type: String, required: true, minLength: 6}
@@ -12,7 +13,7 @@ var UserSchema = new Schema({
 
 //using bcrypt for hashing password
 const bcrypt = require('bcrypt');
-//Length of password
+//Length of password-used in encryption
 let SALT = 10;
 
 //Hashing the password before saving it to the database//pre
