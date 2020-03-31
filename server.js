@@ -20,11 +20,16 @@ app.use(cookieParser());
 //Set up session
 app.use(session({
     secret: 'secret',
-    resave: false,
-    saveUninitialized: true,
+    resave: true,
+    saveUninitialized: false,
+    rolling: true,
     unset: 'destroy',
     store: store,
     name: 'session cookie name',
+    cookie: {
+      httpOnly: false, 
+      secure: false, 
+  }
 }));
 
 // Set up mongoose connection for entering data		

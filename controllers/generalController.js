@@ -11,6 +11,15 @@ exports.about = function(req, res) {
     res.sendFile(path.resolve('view/html/about.html'))   
 };
 
+exports.welcome = function(req, res) {
+	if(req.session.user) {
+    res.sendFile(path.resolve('view/html/welcome.html')) 
+    } else {
+    	console.log('You must be logged in to view this page');//for testing
+    	res.redirect('/')//need more meaningful user responses
+    }
+};
+
 //only allow access to a logged in user
 exports.tasks = function(req, res) {
 	if(req.session.user) {

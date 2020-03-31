@@ -42,7 +42,7 @@ exports.user_signin = function (request, response) {
             request.session.save();
             //responses are temporary for testing
             //response.send(request.session);//testing
-            response.redirect('/about');//should send to a personalised page
+            response.redirect('/welcome');//should send to a personalised page
 
         })
     }

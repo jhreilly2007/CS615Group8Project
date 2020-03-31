@@ -17,6 +17,8 @@ router.get('/about', general_controller.about);
 
 router.get('/tasks', general_controller.tasks);
 
+router.get('/welcome', general_controller.welcome);
+
 //module.exports = router;
 //Test all our data is communicating
 //http://localhost:3000/data/test
