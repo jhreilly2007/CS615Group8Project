@@ -7,6 +7,7 @@ var Schema = mongoose.Schema;
 // Setup userAuthentication Schema
 //should add username
 var UserSchema = new Schema({
+	username: {type: String, required: true, maxLength: 10},
     email: {type: String, required: true, unique: 1, trim: true},
     password: {type: String, required: true, minLength: 6}
 });

@@ -7,16 +7,26 @@ const path = require("path");
 exports.user_auth = function (request, response) {
     var user = new User(
         {
+            username: request.body.username,
             email: request.body.email,
             password: request.body.password
         }
     );
     user.save(function (err) {
         if (err) {
-            response.status(400).send(err);
+         response.json({message : 'SignUp failed, please try again!'})  
+          ////response.status(400).send(err);
+
         }else 
-        //responses are temporary for testing
-        response.send('User Successfully created account <a href=\"http://localhost:3000\">Back to Home<\/a>')
+            request.session.user= {
+                  email: user.email,
+                  password: user.password
+            };
+            request.session.save();
+        //For testing
+        console.log(request.session.user);
+        console.log('Sign up successful!');
+        response.redirect('/welcome');
     })
 };
 
