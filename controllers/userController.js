@@ -14,8 +14,7 @@ exports.user_auth = function (request, response) {
     );
     user.save(function (err) {
         if (err) {
-         response.json({message : 'SignUp failed, please try again!'})  
-          ////response.status(400).send(err);
+         return response.send('Signup Error, please try again!! <a href=\"http://localhost:3000\">Back to Home<\/a>'); 
 
         }else 
             request.session.user= {

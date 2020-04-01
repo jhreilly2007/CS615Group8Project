@@ -2,6 +2,7 @@
 
 var Data = require('../models/dataModel');
 var User = require('../models/userModel');
+var TodoTask = require('../models/TodoTask');
 
 exports.test = function (request, response) {
     response.send('Controller is working! <a href=\"http://localhost:3000\">Back to Home<\/a>');
@@ -58,6 +59,53 @@ exports.data_delete = function (request, response) {
         if (err) response.status(400).send(err +' <a href=\"http://localhost:3000\">Back to Home<\/a>');
         response.send('Deleted successfully! <a href=\"http://localhost:3000\">Back to Home<\/a>');
     })
+};
+
+//Create Task Database Entry
+exports.data_addtask = async function (request, response) {
+    var todoTask = new TodoTask({
+            content: request.body.content
+        }
+    );
+    try {
+        await todoTask.save();
+        return response.redirect("/todo");
+        //response.send('successfully added')
+    } catch (err) {
+        return response.redirect("/todo");
+        //response.send(err);
+    }
+};
+
+// GET METHOD
+exports.data_findtask = function (request, response){
+    TodoTask.find({}, (err, tasks) => {
+    response.render("html/todo.html", { todoTasks: tasks });
+});
+};
+
+//Delete tasks
+exports.task_delete= function (request, response){
+    var id = request.params.id;
+    TodoTask.findByIdAndRemove(id, err => {
+        if (err){
+            return response.send(500, err);
+        }
+        response.redirect("/todo");
+});
+};
+
+//UPDATE
+exports.task_edit = function (request, response) {
+    Data.findByIdAndUpdate(request.params.id, 
+        {$set: request.body},
+
+        function (err, data) {
+        if (err) {
+            return response.send(500, err);
+        }
+        response.redirect("/todo");
+    });
 };
 
 

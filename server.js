@@ -50,7 +50,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use('/', data);
 
 // Send message for default URL uses view folder
-app.use(express.static('view'));
+app.use(express.static(__dirname + '/view'));
+
+var path = require('path');
+app.set('views', path.join(__dirname, 'view'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 var port = process.env.API_PORT;
 

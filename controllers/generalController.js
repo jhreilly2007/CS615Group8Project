@@ -10,6 +10,10 @@ exports.index = function(req, res) {
 exports.about = function(req, res) {
     res.sendFile(path.resolve('view/html/about.html'))   
 };
+/**
+exports.todo = function(req, res) {
+    res.sendFile(path.resolve('view/html/todo.ejs'))   
+};*/
 
 exports.welcome = function(req, res) {
 	if(req.session.user) {

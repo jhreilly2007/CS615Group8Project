@@ -15,6 +15,8 @@ router.get('/', general_controller.index);
 
 router.get('/about', general_controller.about);
 
+//router.get('/todo', general_controller.todo);
+
 router.get('/tasks', general_controller.tasks);
 
 router.get('/welcome', general_controller.welcome);
@@ -36,6 +38,12 @@ router.put('/data/:id/update', data_controller.data_update);
 //http://localhost:3000/data/id/delete
 router.delete('/data/:id/delete', data_controller.data_delete);
 
+//ToDo routes
+//http://localhost:3000/todo
+router.post('/todo', data_controller.data_addtask);
+router.get('/todo', data_controller.data_findtask);
+router.get('/todo/remove/:id', data_controller.task_delete);
+router.get('/todo/edit/:id', data_controller.task_edit);
 
 //Login Routes
 //http://localhost:3000/user/signup

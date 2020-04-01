@@ -15,12 +15,15 @@
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "connect-mongodb-session": "^2.3.1",
+    "consolidate-build": "^1.1.0",
     "cookie-parser": "^1.4.5",
     "custom-env": "^2.0.1",
     "dotenv": "^8.2.0",
+    "ejs": "^3.0.2",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "mongoose": "^5.9.4",
+    "mustache": "^4.0.1",
     "nodemon": "^2.0.2"
   }
 }

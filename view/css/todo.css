@@ -1,0 +1,101 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body {
+	background: #dadada;
+}
+.todo-box {	
+	position: absolute;
+	top:50%;
+	left: 50%;
+	padding: 20px;
+	width: 600px;
+	transform: translate(-50%,-50%);
+	background: #0394fc;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.add{
+	color: #515A5A;
+}
+.todo {
+	width: 400px;
+}
+.todo-box h2 {
+	padding: 10px;
+	font-size: 2em;
+}
+.todo-header input {
+	width: 92%;
+	border-radius: 5px;
+	height: 40px;
+	border: 2px solid #aaa;
+	box-shadow: 0 0 8px 0 dodgerBlue;
+}
+.todo-header button {
+	color: white;
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+	padding: 5px;
+	background-color: #f2f6e9;
+}
+.todo-list-item {
+	color: #f2f6e9;
+	padding: 10px;
+	margin-top: 10px;
+	border: none;
+	border-radius: 5px;
+	background: #515A5A;
+	display: flex;
+	flex-direction: row;
+}
+.todo-list-item form {
+	width: 100%;
+	display: flex;
+}
+.todo-list-item input {
+	flex-grow: 2;
+	margin-right: 20px;
+	border: none;
+	border-radius: 5px;
+}
+.todo-list-item button {
+	color: #f2f6e9;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 5px;
+	font-family: 'Candal', sans-serif;
+	background-color: rgb(51, 212, 100);
+}
+.todo-list-item .cancel {
+	color: white;
+	text-decoration: none;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 5px;
+	background-color: rgb(223, 43, 43);
+	margin-left: 5px;
+}
+.todo-list-item div {
+	flex-grow: 2;
+}
+.todo-list-item .edit {
+	color : #20bd20;
+	margin-right: 10px;
+	cursor:pointer;
+	text-decoration: none;
+}
+.todo-list-item .remove {
+	color : #d91f11;
+	margin-right: 5px;
+	cursor:pointer;
+	text-decoration: none;
+}
