@@ -52,6 +52,7 @@ router.post('/user/signup', user_controller.user_auth);
 router.post('/user/signin', user_controller.user_signin);
 
 router.get('/user/logout', user_controller.user_logout);
+router.get('/user/details', user_controller.user_details);
 
 module.exports = router;
 
