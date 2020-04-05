@@ -5,8 +5,11 @@ const path = require("path");
 
 //Authenticate User
 exports.user_auth = function (request, response) {
+    console.log(request.body);
     var user = new User(
         {
+            fName: request.body.fName,
+            lName: request.body.lName,
             username: request.body.username,
             email: request.body.email,
             password: request.body.password
@@ -14,14 +17,16 @@ exports.user_auth = function (request, response) {
     );
     user.save(function (err) {
         if (err) {
-         return response.send('Signup Error, please try again!! <a href=\"http://localhost:3000\">Back to Home<\/a>'); 
+            return response.send('Signup Error, please try again!! <a href=\"http://localhost:3000\">Back to Home<\/a>');
 
-        }else 
-            request.session.user= {
-                  email: user.email,
-                  password: user.password
+        } else
+            request.session.user = {
+                fName: user.fName,
+                lName: user.lName,
+                email: user.email,
+                password: user.password
             };
-            request.session.save();
+        request.session.save();
         //For testing
         console.log(request.session.user);
         console.log('Sign up successful!');
@@ -32,41 +37,53 @@ exports.user_auth = function (request, response) {
 //Sign in
 exports.user_signin = function (request, response) {
     //predefined function .findOne
-    User.findOne({'email' : request.body.email}, (err, user)=>{
+    User.findOne({ 'email': request.body.email }, (err, user) => {
         //no email matching user, throw error
-        if(!user){
-            response.json({message : 'Login failed, user not found!'})
-        }else{
-        
-        //if emailed found, compare passwords
-        user.comparePassword(request.body.password, (err, isMatch)=>{
-            if(err) throw err;
-            if(!isMatch) return response.status(400).json({
-                message : 'Wrong Password'
-            });
-            request.session.user= {
-                  email: user.email,
-                  password: user.password
-            };
-            request.session.save();
-            //responses are temporary for testing
-            //response.send(request.session);//testing
-            response.redirect('/welcome');//should send to a personalised page
+        if (!user) {
+            response.json({ message: 'Login failed, user not found!' })
+        } else {
 
-        })
-    }
-        
+            //if emailed found, compare passwords
+            user.comparePassword(request.body.password, (err, isMatch) => {
+                if (err) throw err;
+                if (!isMatch) return response.status(400).json({
+                    message: 'Wrong Password'
+                });
+                request.session.user = {
+                    fName: user.fName,
+                    lName: user.lName,
+                    email: user.email,
+                    password: user.password
+                };
+                request.session.save();
+                //responses are temporary for testing
+                //response.send(request.session);//testing
+                response.redirect('/welcome');//should send to a personalised page
+
+            })
+        }
+
     })
 };
 
 //Logout & delete stored session data
 exports.user_logout = function (request, response) {
-    if(request.session.user) {
+    if (request.session.user) {
         console.log(request.session.user)//just for testing
         delete request.session.user;
         response.redirect('/');//change routes as we develop
     } else {
         console.log('No session found')//just for testing
         response.redirect('/');//change routes as we develop
-    }        
+    }
+};
+
+exports.user_details = function (request, response) {
+    if (request.session.user) {
+        var userDetails = request.session.user;
+        response.send(userDetails);
+    } else {
+        console.log('No session found')//just for testing
+        response.send();
+    }
 };
