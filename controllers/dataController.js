@@ -3,6 +3,7 @@
 var Data = require('../models/dataModel');
 var User = require('../models/userModel');
 var TodoTask = require('../models/TodoTask');
+const path = require("path");
 
 exports.test = function (request, response) {
     response.send('Controller is working! <a href=\"http://localhost:3000\">Back to Home<\/a>');
@@ -20,14 +21,24 @@ exports.data_create = function (request, response) {
     );
     data.save(function (err) {
         if (err) {
-        response.status(400).send(err + '<a href=\"http://localhost:3000\">Back to Home<\/a>');
+            var dataEntryError =request.session.dataEntryError = {
+            dataEntryError: 'An Error Occurred! Data was not entered'
+            };
+            request.session.save();
+            //return response.redirect('/tasks');
+            response.status(400).send(err + '<a href="/tasks">Back to Tasks<\/a>');
        }else{
-        //This is all temporary for testing
-        response.write("<script type='text/javascript'>");
-        response.write("alert('Successfully Added!');");
-        response.write("window.location='/tasks';");
-        response.write("</script>");
-    }
+            var dataEntrySuccess =request.session.dataEntrySuccess = {
+            dataEntrySuccess: 'Data Successfully Added'
+            };
+            request.session.save();
+            //return response.redirect('/tasks');
+            //This is all temporary for testing
+            response.write("<script type='text/javascript'>");
+            response.write("alert('Successfully Added!');");
+            response.write("window.location='/tasks';");
+            response.write("</script>");
+        }
     })
 };
 

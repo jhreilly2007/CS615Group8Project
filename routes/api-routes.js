@@ -48,6 +48,7 @@ router.get('/todo/edit/:id', data_controller.task_edit);
 //Login Routes
 //http://localhost:3000/user/signup
 router.post('/user/signup', user_controller.user_auth);
+router.get('/user/signupfailed', user_controller.signup_failed);
 
 router.post('/user/signin', user_controller.user_signin);
 

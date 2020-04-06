@@ -37,6 +37,13 @@ body {
   position: relative;
 }
 
+.welcome {
+  background-image: url('../images/books.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
 .tasks {
   background-image: url('../images/tasks.jpeg');
   background-size: cover;

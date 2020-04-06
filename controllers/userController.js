@@ -17,7 +17,11 @@ exports.user_auth = function (request, response) {
     );
     user.save(function (err) {
         if (err) {
-            return response.send('Signup Error, please try again!! <a href=\"http://localhost:3000\">Back to Home<\/a>');
+            var signupFailMessage =request.session.signupFailMessage = {
+                signupFailMessage: 'Signup Failed!'
+            };
+            request.session.save();
+            return response.render("index.html", signupFailMessage);
 
         } else
             request.session.user = {
@@ -27,10 +31,12 @@ exports.user_auth = function (request, response) {
                 password: user.password
             };
         request.session.save();
+
         //For testing
         console.log(request.session.user);
         console.log('Sign up successful!');
         response.redirect('/welcome');
+
     })
 };
 
@@ -40,15 +46,23 @@ exports.user_signin = function (request, response) {
     User.findOne({ 'email': request.body.email }, (err, user) => {
         //no email matching user, throw error
         if (!user) {
-            response.json({ message: 'Login failed, user not found!' })
+            var userNotFound =request.session.userNotFound = {
+                userNotFound: 'Username not Found! Please try again'
+            };
+            request.session.save();
+            return response.render("index.html", userNotFound);
         } else {
 
             //if emailed found, compare passwords
             user.comparePassword(request.body.password, (err, isMatch) => {
                 if (err) throw err;
-                if (!isMatch) return response.status(400).json({
-                    message: 'Wrong Password'
-                });
+                if (!isMatch) {
+                    var wrongPassword =request.session.wrongPassword = {
+                        userNotFound: 'Wrong Password! Please try again'
+                    };
+                    request.session.save();
+                    return response.render("index.html", wrongPassword);
+                }
                 request.session.user = {
                     fName: user.fName,
                     lName: user.lName,
@@ -84,6 +98,18 @@ exports.user_details = function (request, response) {
         response.send(userDetails);
     } else {
         console.log('No session found')//just for testing
+        response.send();
+    }
+};
+
+exports.signup_failed = function (request, response) {
+    if (request.session.signupfailed) {
+        var signupFailed = request.session.signupfailed;
+        console.log('Session found');//testing
+        response.send(signupFailed);
+
+    } else {
+        console.log('Session not found')//testing
         response.send();
     }
 };

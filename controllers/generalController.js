@@ -4,11 +4,11 @@ const path = require("path");
 var session = require('express-session'); 
 
 exports.index = function(req, res) {
-    res.sendFile(path.resolve('view/index.html')) 
+    res.render(path.resolve('view/index.html'));
 };
 
 exports.about = function(req, res) {
-    res.sendFile(path.resolve('view/html/about.html'))   
+    res.render(path.resolve('view/html/about.html'))   
 };
 /**
 exports.todo = function(req, res) {
@@ -17,7 +17,7 @@ exports.todo = function(req, res) {
 
 exports.welcome = function(req, res) {
 	if(req.session.user) {
-    res.sendFile(path.resolve('view/html/welcome.html')) 
+    res.render(path.resolve('view/html/welcome.html')) 
     } else {
     	console.log('You must be logged in to view this page');//for testing
     	res.redirect('/')//need more meaningful user responses
@@ -27,7 +27,7 @@ exports.welcome = function(req, res) {
 //only allow access to a logged in user
 exports.tasks = function(req, res) {
 	if(req.session.user) {
-    res.sendFile(path.resolve('view/html/tasks.html')) 
+    res.render(path.resolve('view/html/tasks.html')) 
     } else {
     	console.log('You must be logged in to view tasks');//for testing
     	res.redirect('/')//need more meaningful user responses

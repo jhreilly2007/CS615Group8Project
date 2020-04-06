@@ -5,6 +5,7 @@
 
   <title>CS615 Group 8 Project</title>
   <meta charset="utf-8">
+  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -12,6 +13,7 @@
 </head>
 
 <body>
+ 
   <nav class="navbar navbar-expand-md">
     <a class="navbar-brand" href="#">CS615 Project Group 8</a>
     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
@@ -40,6 +42,34 @@
       <button type="button" class="btn btn-outline-secondary btn-lg" data-toggle="modal"
         data-target="#loginModal">Login</button>
     </div>
+
+    <!--send popup alert if signup fails-->
+    <% if ( typeof signupFailMessage !== 'undefined' ) {%>
+    <% if (signupFailMessage.length){ %>
+    <div class="alert alert-danger">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong><%=signupFailMessage%></strong>
+    </div>
+    <% } }%>
+
+        <!--send popup alert if usernot found at login-->
+    <% if ( typeof userNotFound !== 'undefined' ) {%>
+    <% if (userNotFound.length){ %>
+    <div class="alert alert-danger">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong><%=userNotFound%></strong>
+    </div>
+    <% } }%>
+
+            <!--send popup alert if incorrect password entered-->
+    <% if ( typeof wrongPassword !== 'undefined' ) {%>
+    <% if (wrongPassword.length){ %>
+    <div class="alert alert-danger">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong><%=wrongPassword%></strong>
+    </div>
+    <% } }%>
+
   </header>
 
   <!--Modal to log in-->
@@ -72,7 +102,7 @@
       </div>
     </div>
   </div>
-
+  
   <!--modal to sign up-->
   <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -115,12 +145,15 @@
       </div>
     </div>
   </div>
+
+
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
     integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
-  <script src="js/main.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/welcome.js"></script>
 
 </body>
 
