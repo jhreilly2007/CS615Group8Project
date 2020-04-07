@@ -25,19 +25,16 @@ exports.data_create = function (request, response) {
             dataEntryError: 'An Error Occurred! Data was not entered'
             };
             request.session.save();
-            //return response.redirect('/tasks');
-            response.status(400).send(err + '<a href="/tasks">Back to Tasks<\/a>');
+            console.log(request.session.dataEntryError);
+            return response.render('ejs/tasks.ejs', dataEntryError);
+
        }else{
             var dataEntrySuccess =request.session.dataEntrySuccess = {
             dataEntrySuccess: 'Data Successfully Added'
             };
             request.session.save();
-            //return response.redirect('/tasks');
-            //This is all temporary for testing
-            response.write("<script type='text/javascript'>");
-            response.write("alert('Successfully Added!');");
-            response.write("window.location='/tasks';");
-            response.write("</script>");
+            console.log(request.session.dataEntrySuccess);
+            return response.render('ejs/tasks.ejs', dataEntrySuccess);
         }
     })
 };
@@ -91,7 +88,7 @@ exports.data_addtask = async function (request, response) {
 // GET METHOD
 exports.data_findtask = function (request, response){
     TodoTask.find({}, (err, tasks) => {
-    response.render("html/todo.html", { todoTasks: tasks });
+    response.render("ejs/todo.ejs", { todoTasks: tasks });
 });
 };
 

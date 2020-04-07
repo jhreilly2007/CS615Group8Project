@@ -15,8 +15,6 @@ router.get('/', general_controller.index);
 
 router.get('/about', general_controller.about);
 
-//router.get('/todo', general_controller.todo);
-
 router.get('/tasks', general_controller.tasks);
 
 router.get('/welcome', general_controller.welcome);

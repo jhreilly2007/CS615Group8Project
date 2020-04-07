@@ -21,7 +21,7 @@ exports.user_auth = function (request, response) {
                 signupFailMessage: 'Signup Failed!'
             };
             request.session.save();
-            return response.render("index.html", signupFailMessage);
+            return response.render('index.ejs', signupFailMessage);
 
         } else
             request.session.user = {
@@ -50,7 +50,7 @@ exports.user_signin = function (request, response) {
                 userNotFound: 'Username not Found! Please try again'
             };
             request.session.save();
-            return response.render("index.html", userNotFound);
+            return response.render("index.ejs", userNotFound);
         } else {
 
             //if emailed found, compare passwords
@@ -61,7 +61,7 @@ exports.user_signin = function (request, response) {
                         userNotFound: 'Wrong Password! Please try again'
                     };
                     request.session.save();
-                    return response.render("index.html", wrongPassword);
+                    return response.render("index.ejs", wrongPassword);
                 }
                 request.session.user = {
                     fName: user.fName,

@@ -54,8 +54,11 @@ app.use(express.static(__dirname + '/view'));
 
 var path = require('path');
 app.set('views', path.join(__dirname, 'view'));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+//app.engine('html', require('ejs').renderFile);
+//app.set('view engine', 'html');
+
+//app.use(express.static(path.join(__dirname, 'view')));
+app.set('view engine', 'ejs');
 
 var port = process.env.API_PORT;
 
