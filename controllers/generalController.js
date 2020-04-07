@@ -3,30 +3,36 @@ const path = require("path");
 //Using express-sessions to determin if user is logged in 
 var session = require('express-session'); 
 
-exports.index = function(req, res) {
-    res.render(path.resolve('view/index.ejs'));
+exports.index = function(request, response) {
+    response.render(path.resolve('view/index.ejs'));
 };
 
-exports.about = function(req, res) {
-    res.render(path.resolve('view/ejs/about.ejs'))   
+exports.about = function(request, response) {
+    response.render(path.resolve('view/ejs/about.ejs'))   
 };
 
-exports.welcome = function(req, res) {
-	if(req.session.user) {
-    res.render(path.resolve('view/ejs/welcome.ejs')) 
+exports.welcome = function(request, response) {
+	if(request.session.user) {
+    response.render(path.resolve('view/ejs/welcome.ejs')) 
     } else {
-    	console.log('You must be logged in to view this page');//for testing
-    	res.redirect('/')//need more meaningful user responses
-    }
+        var accessDenied =request.session.accessDeniedTask = {
+                accessDenied: 'You must be logged in to view this page!'
+            };
+            request.session.save();
+            return response.render('index.ejs', accessDenied);
+        }
 };
 
 //only allow access to a logged in user
-exports.tasks = function(req, res) {
-	if(req.session.user) {
-    res.render(path.resolve('view/ejs/tasks.ejs')) 
+exports.tasks = function(request, response) {
+	if(request.session.user) {
+    response.render(path.resolve('view/ejs/tasks.ejs')) 
     } else {
-    	console.log('You must be logged in to view tasks');//for testing
-    	res.redirect('/')//need more meaningful user responses
-    }
+        var accessDeniedTask =request.session.accessDeniedTask = {
+                accessDenied: 'You must be logged in to view Tasks!'
+            };
+            request.session.save();
+            return response.render('index.ejs', accessDeniedTask);
+        }
 };
 

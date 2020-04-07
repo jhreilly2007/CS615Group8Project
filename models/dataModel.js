@@ -1,5 +1,5 @@
 //This is the Model in the MVC
-
+//Data Model for Tasks
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;

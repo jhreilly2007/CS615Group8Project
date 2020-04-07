@@ -30,20 +30,15 @@ exports.user_auth = function (request, response) {
                 email: user.email,
                 password: user.password
             };
-        request.session.save();
-
-        //For testing
-        console.log(request.session.user);
-        console.log('Sign up successful!');
-        response.redirect('/welcome');
-
-    })
+            request.session.save();
+            response.redirect('/welcome');
+        })
 };
 
 //Sign in
 exports.user_signin = function (request, response) {
     //predefined function .findOne
-    User.findOne({ 'email': request.body.email }, (err, user) => {
+    User.findOne({ 'email': request.body.email }, function(err, user){
         //no email matching user, throw error
         if (!user) {
             var userNotFound =request.session.userNotFound = {
@@ -52,9 +47,8 @@ exports.user_signin = function (request, response) {
             request.session.save();
             return response.render("index.ejs", userNotFound);
         } else {
-
             //if emailed found, compare passwords
-            user.comparePassword(request.body.password, (err, isMatch) => {
+            user.comparePassword(request.body.password, function(err, isMatch) {
                 if (err) throw err;
                 if (!isMatch) {
                     var wrongPassword =request.session.wrongPassword = {
@@ -70,24 +64,19 @@ exports.user_signin = function (request, response) {
                     password: user.password
                 };
                 request.session.save();
-                //responses are temporary for testing
-                //response.send(request.session);//testing
-                response.redirect('/welcome');//should send to a personalised page
-
+                //redirect to a personalised page
+                response.redirect('/welcome');
             })
         }
-
     })
 };
 
 //Logout & delete stored session data
 exports.user_logout = function (request, response) {
     if (request.session.user) {
-        console.log(request.session.user)//just for testing
         delete request.session.user;
         response.redirect('/');//change routes as we develop
     } else {
-        console.log('No session found')//just for testing
         response.redirect('/');//change routes as we develop
     }
 };
@@ -97,7 +86,6 @@ exports.user_details = function (request, response) {
         var userDetails = request.session.user;
         response.send(userDetails);
     } else {
-        console.log('No session found')//just for testing
         response.send();
     }
 };
@@ -105,11 +93,8 @@ exports.user_details = function (request, response) {
 exports.signup_failed = function (request, response) {
     if (request.session.signupfailed) {
         var signupFailed = request.session.signupfailed;
-        console.log('Session found');//testing
         response.send(signupFailed);
-
     } else {
-        console.log('Session not found')//testing
         response.send();
     }
 };

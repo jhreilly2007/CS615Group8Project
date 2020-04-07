@@ -70,6 +70,33 @@
     </div>
     <% } }%>
 
+          <!--send popup alert login to see todo list-->
+    <% if ( typeof accessDeniedTodo !== 'undefined' ) {%>
+    <% if (accessDeniedTodo.length){ %>
+    <div class="alert alert-danger">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong><%=accessDeniedTodo%></strong>
+    </div>
+    <% } }%>
+
+          <!--send popup alert login to see Welcome Page-->
+    <% if ( typeof accessDenied !== 'undefined' ) {%>
+    <% if (accessDenied.length){ %>
+    <div class="alert alert-danger">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong><%=accessDenied%></strong>
+    </div>
+    <% } }%>
+
+          <!--send popup alert login to see Tasks Page-->
+    <% if ( typeof accessDeniedTask !== 'undefined' ) {%>
+    <% if (accessDeniedTask.length){ %>
+    <div class="alert alert-danger">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong><%=accessDeniedTask%></strong>
+    </div>
+    <% } }%>
+
   </header>
 
   <!--Modal to log in-->

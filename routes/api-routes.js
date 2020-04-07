@@ -9,8 +9,7 @@ var data_controller = require('../controllers/dataController');
 var user_controller = require('../controllers/userController');
 var general_controller = require('../controllers/generalController');
 
-//DATABASE ROUTES
-//General
+/****GENERAL ROUTES****/
 router.get('/', general_controller.index);
 
 router.get('/about', general_controller.about);
@@ -19,7 +18,8 @@ router.get('/tasks', general_controller.tasks);
 
 router.get('/welcome', general_controller.welcome);
 
-//module.exports = router;
+/****DataBase Routes for Tasks****/
+
 //Test all our data is communicating
 //http://localhost:3000/data/test
 router.get('/data/test', data_controller.test);
@@ -36,21 +36,28 @@ router.put('/data/:id/update', data_controller.data_update);
 //http://localhost:3000/data/id/delete
 router.delete('/data/:id/delete', data_controller.data_delete);
 
-//ToDo routes
+/****ToDo routes****/
 //http://localhost:3000/todo
 router.post('/todo', data_controller.data_addtask);
-router.get('/todo', data_controller.data_findtask);
-router.get('/todo/remove/:id', data_controller.task_delete);
-router.get('/todo/edit/:id', data_controller.task_edit);
 
-//Login Routes
+router.get('/todo', data_controller.data_findtask);
+
+router.get('/todo/remove/:id', data_controller.task_delete);
+
+router.get('/todo/edit/:id', data_controller.get_edit);
+
+router.post('/todo/edit/:id', data_controller.post_edit);
+
+/****Login Routes****/
 //http://localhost:3000/user/signup
 router.post('/user/signup', user_controller.user_auth);
+
 router.get('/user/signupfailed', user_controller.signup_failed);
 
 router.post('/user/signin', user_controller.user_signin);
 
 router.get('/user/logout', user_controller.user_logout);
+
 router.get('/user/details', user_controller.user_details);
 
 module.exports = router;
