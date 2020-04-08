@@ -70,12 +70,12 @@
     </div>
     <% } }%>
 
-          <!--send popup alert login to see todo list-->
-    <% if ( typeof accessDeniedTodo !== 'undefined' ) {%>
-    <% if (accessDeniedTodo.length){ %>
+          <!--send popup alert login to see Task list-->
+    <% if ( typeof accessDeniedTask !== 'undefined' ) {%>
+    <% if (accessDeniedTask.length){ %>
     <div class="alert alert-danger">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <strong><%=accessDeniedTodo%></strong>
+      <strong><%=accessDeniedTask%></strong>
     </div>
     <% } }%>
 
@@ -88,12 +88,12 @@
     </div>
     <% } }%>
 
-          <!--send popup alert login to see Tasks Page-->
-    <% if ( typeof accessDeniedTask !== 'undefined' ) {%>
-    <% if (accessDeniedTask.length){ %>
+          <!--send popup alert login to see Groups Page-->
+    <% if ( typeof accessDeniedGroup !== 'undefined' ) {%>
+    <% if (accessDeniedGroup.length){ %>
     <div class="alert alert-danger">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <strong><%=accessDeniedTask%></strong>
+      <strong><%=accessDeniedGroup%></strong>
     </div>
     <% } }%>
 

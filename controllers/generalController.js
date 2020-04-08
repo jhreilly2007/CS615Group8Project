@@ -15,7 +15,7 @@ exports.welcome = function(request, response) {
 	if(request.session.user) {
     response.render(path.resolve('view/ejs/welcome.ejs')) 
     } else {
-        var accessDenied =request.session.accessDeniedTask = {
+        var accessDenied =request.session.accessDenied = {
                 accessDenied: 'You must be logged in to view this page!'
             };
             request.session.save();
@@ -24,15 +24,15 @@ exports.welcome = function(request, response) {
 };
 
 //only allow access to a logged in user
-exports.tasks = function(request, response) {
+exports.groups = function(request, response) {
 	if(request.session.user) {
-    response.render(path.resolve('view/ejs/tasks.ejs')) 
+    response.render(path.resolve('view/ejs/groups.ejs')) 
     } else {
-        var accessDeniedTask =request.session.accessDeniedTask = {
-                accessDenied: 'You must be logged in to view Tasks!'
+        var accessDeniedGroup =request.session.accessDeniedGroup = {
+                accessDenied: 'You must be logged in to view Groups!'
             };
             request.session.save();
-            return response.render('index.ejs', accessDeniedTask);
+            return response.render('index.ejs', accessDeniedGroup);
         }
 };
 

@@ -3,17 +3,17 @@
   
 <head>
 
-	<title>Edit To-Do List</title>
+	<title>Edit Task List</title>
     <meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
-	<link rel="stylesheet" type="text/css" href="/css/todo.css">
+	<link rel="stylesheet" type="text/css" href="/css/tasks.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 
 <body>
 	<nav class="navbar navbar-expand-md">
-		<a class="navbar-brand" href="#">To Do</a>
+		<a class="navbar-brand" href="#">Tasks</a>
 		<button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -24,7 +24,7 @@
 				</li>
 
 				<li class="nav-item">
-        			<a class="nav-link" href="/tasks">Tasks</a>
+        			<a class="nav-link" href="/groups">Groups</a>
       			</li>
 
       			<li class="nav-item">
@@ -34,36 +34,36 @@
       	</div>
       </nav>
 
-      <div class="d-flex flex-column bd-highlight mb-3 todo-box">
-      	<h2>Edit To-Do List</h2>
+      <div class="d-flex flex-column bd-highlight mb-3 task-box">
+      	<h2>List of Tasks</h2>
       	<div class="p-2 bd-highlight">
-      		<form action="" method="POST" class="todo-header">
-      			<input type="text" placeholder="Add New Task to the List" name="content">
+      		<form action="" method="POST" class="task-header">
+      			<input type="text" placeholder="Edit Task" name="content">
       			<button type="submit">
-					<span class="fas fa-plus add"></span>
+					<span class="fas fa-check update"></span>
 				</button>
 			</form>
 			
-			<ul class="todo-list">
-				<% todoTasks.forEach(details => { %>
+			<ul class="task-list">
+				<% myTasks.forEach(details => { %>
 				<% if (details._id == idTask) { %>
-				<li class="todo-list-item">
-					<form action="/todo/edit/<%= details._id %>" method="POST">
+				<li class="task-list-item">
+					<form action="/tasks/edit/<%= details._id %>" method="POST">
 						<input type="text" value="<%= details.content %>" name="content">
 						<button type="submit"><span class="fas fa-check"></button>
-						<a href="/todo" class="cancel"><span class="fas fa-times"></a>
+						<a href="/tasks" class="cancel"><span class="fas fa-times"></a>
 					</form>
 				</li>
 
 				<% } else { %>
-				<li class="todo-list-item">
-					<div class="todo-list-item-name">
+				<li class="task-list-item">
+					<div class="task-list-item-name">
 						<%= details.content %>
 					</div>
-					<a href="/todo/edit/<%= details._id %>" class="edit">
+					<a href="/tasks/edit/<%= details._id %>" class="edit">
 						<span class="fas fa-edit"></span>
 					</a>
-					<a href="/todo/remove/<%= details._id %>" class="remove">
+					<a href="/tasks/remove/<%= details._id %>" class="remove">
 						<span class="fas fa-times"></span>
 					</a>
 				</li>

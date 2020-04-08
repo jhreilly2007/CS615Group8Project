@@ -7,7 +7,7 @@ body {
 	background: #dadada;
 }
 
-.todo-box {	
+.task-box {	
 	top:50%;
 	left: 50%;
 	padding: 40px;
@@ -19,23 +19,28 @@ body {
 .add{
 	color: #515A5A;
 }
-.todo {
+
+.update{
+	color : #20bd20;
+}
+
+.task {
 	width: 400px;
 }
-.todo-box h2 {
+.task-box h2 {
 	text-align: center;
 	padding: 30px;	
 	font-size: 2em;/*parent child 1m to 2m*/
 }
 
-.todo-header input {
+.task-header input {
 	width: 92%;
 	border-radius: 5px;
 	height: 40px;
 	border: 2px solid #aaa;
 	box-shadow: 0 0 8px 0 dodgerBlue;
 }
-.todo-header button {
+.task-header button {
 	color: white;
 	border: none;
 	border-radius: 50%;
@@ -43,7 +48,7 @@ body {
 	padding: 5px;
 	background-color: #f2f6e9;
 }
-.todo-list-item {
+.task-list-item {
 	color: #f2f6e9;
 	padding: 10px;
 	margin-top: 10px;
@@ -53,17 +58,17 @@ body {
 	display: flex;
 	flex-direction: row;
 }
-.todo-list-item form {
+.task-list-item form {
 	width: 100%;
 	display: flex;
 }
-.todo-list-item input {
+.task-list-item input {
 	flex-grow: 2;
 	margin-right: 20px;
 	border: none;
 	border-radius: 5px;
 }
-.todo-list-item button {
+.task-list-item button {
 	color: #f2f6e9;
 	border: none;
 	border-radius: 5px;
@@ -71,7 +76,7 @@ body {
 	padding: 5px;
 	background-color: #20bd20;
 }
-.todo-list-item .cancel {
+.task-list-item .cancel {
 	color: white;
 	text-decoration: none;
 	border: none;
@@ -81,16 +86,16 @@ body {
 	background-color: #d91f11;
 	margin-left: 5px;
 }
-.todo-list-item div {
+.task-list-item div {
 	flex-grow: 2;
 }
-.todo-list-item .edit {
+.task-list-item .edit {
 	color : #20bd20;
 	margin-right: 10px;
 	cursor:pointer;
 	text-decoration: none;
 }
-.todo-list-item .remove {
+.task-list-item .remove {
 	color : #d91f11;
 	margin-right: 5px;
 	cursor:pointer;

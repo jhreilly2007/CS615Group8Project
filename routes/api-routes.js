@@ -5,48 +5,49 @@ var router = express.Router();
 const path = require("path");
 
 //Required Controllers
-var data_controller = require('../controllers/dataController');
+var task_controller = require('../controllers/taskController');
 var user_controller = require('../controllers/userController');
 var general_controller = require('../controllers/generalController');
+var group_controller = require('../controllers/groupController');
 
 /****GENERAL ROUTES****/
 router.get('/', general_controller.index);
 
 router.get('/about', general_controller.about);
 
-router.get('/tasks', general_controller.tasks);
+router.get('/groups', general_controller.groups);
 
 router.get('/welcome', general_controller.welcome);
 
-/****DataBase Routes for Tasks****/
+/****DataBase Routes for Groups****/
 
 //Test all our data is communicating
-//http://localhost:3000/data/test
-router.get('/data/test', data_controller.test);
+//http://localhost:3000/group/test
+router.get('/group/test', group_controller.test);
 
-//http://localhost:3000/data/create
-router.post('/data/create', data_controller.data_create);
+//http://localhost:3000/group/create
+router.post('/group/create', group_controller.group_create);
 
-//http://localhost:3000/data/id
-router.get('/data/:id', data_controller.data_details);
+//http://localhost:3000/group/id
+router.get('/group/:id', group_controller.group_details);
 
-//http://localhost:3000/data/id/update
-router.put('/data/:id/update', data_controller.data_update);
+//http://localhost:3000/group/id/update
+router.put('/group/:id/update', group_controller.group_update);
 
-//http://localhost:3000/data/id/delete
-router.delete('/data/:id/delete', data_controller.data_delete);
+//http://localhost:3000/group/id/delete
+router.delete('/group/:id/delete', group_controller.group_delete);
 
-/****ToDo routes****/
-//http://localhost:3000/todo
-router.post('/todo', data_controller.data_addtask);
+/****TASK routes****/
+//http://localhost:3000/tasks
+router.post('/tasks', task_controller.data_addtask);
 
-router.get('/todo', data_controller.data_findtask);
+router.get('/tasks', task_controller.data_findtask);
 
-router.get('/todo/remove/:id', data_controller.task_delete);
+router.get('/tasks/remove/:id', task_controller.task_delete);
 
-router.get('/todo/edit/:id', data_controller.get_edit);
+router.get('/tasks/edit/:id', task_controller.get_edit);
 
-router.post('/todo/edit/:id', data_controller.post_edit);
+router.post('/tasks/edit/:id', task_controller.post_edit);
 
 /****Login Routes****/
 //http://localhost:3000/user/signup
