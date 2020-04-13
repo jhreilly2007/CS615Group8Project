@@ -4,4 +4,3 @@ $(document).ready(function(){
   $('.tasks').height($(window).height());
   $('.welcome').height($(window).height());
 })
-
