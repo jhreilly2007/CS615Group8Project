@@ -3,11 +3,15 @@
 var Task = require('../models/taskModel');
 const path = require("path");
 
+//This section relates to TASKS only!
 /****TASK LIST SECTION****/
 //Create Task Database Entry
 exports.data_addtask = async function (request, response){
     var task = new Task({
-        content: request.body.content
+        name: request.body.name,
+        description: request.body.description,
+        resource: request.body.resource,
+        priority: request.body.priority
     });
     try {
         await task.save();
@@ -22,6 +26,7 @@ exports.data_addtask = async function (request, response){
 exports.data_findtask = function (request, response){
     if(request.session.user) {
         Task.find({}, function(err, tasks) {
+            console.log(tasks);
             response.render("ejs/tasks.ejs", { myTasks: tasks });
         });    
     } else {

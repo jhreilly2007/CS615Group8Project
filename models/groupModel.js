@@ -12,13 +12,6 @@ var GroupSchema = new Schema({
     phone: {type: String, required: true}
 });
 
-var GroupSchema = new Schema({
-    name: {type: String, required: true, max: 100},	
-    email: {type: String, required: true},
-    gender: {type: String, required: true},
-    phone: {type: String, required: true}
-});
-
 module.exports = mongoose.model('Group', GroupSchema);
 
 
