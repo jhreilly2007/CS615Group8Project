@@ -1,13 +1,13 @@
 # CS615GroupProject: Collaborative Task Sharing
-##Class project for CS615: Internet Solutions
+## Class project for CS615: Internet Solutions
 
-###to run : npm install
-###to start: npm start
+### to run : npm install
+### to start: npm start
 
 -Backend is working. User authentication is working. Password is encypted before storing in database. Authorization is working using Express-sessions. User must be logged in to access task or groups. We can change tasks etc and details but structure is in place and working.
 -User can add/ delete and edit tasks. Tasks are showing on the website to authorized users.
 
-##Goals of the project:
+## Goals of the project:
 Develop a data-model (realisable in JSON), together with an accompanying RESTful API for the collaborative management of tasks.
 
 (i) A user signs into their online account, creates a task or edits a task previously created. For now, a task consists of a title, a description, and an optional link to a resource (e.g. to a website or an online image), and optional contextual annotations (e.g. tags that further describe the task, such as ‘important’, ‘project X’). The user may decide to make the task private-only access, to share it with a group, or to make it publicly accessible.
