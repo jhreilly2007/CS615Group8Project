@@ -46,6 +46,7 @@
   </nav>
   
   <body>
+
 	  <div class="d-flex flex-column bd-highlight mb-3 task-box">
 		  <h2>List of Tasks</h2>
 		  <ul class="task-list">
@@ -55,8 +56,15 @@
 					<h6>Event Name</h6><%= details.name %><br/>
 					<h6>Event Description</h6><%= details.description %><br/>
 					<h6>Event Resource (Optional) </h6><%= details.resource %><br/>
-					<h6>Event Priority (Optional)</h6><%= details.priority %><br/>
+					<h6>Event Priority (Optional)</h6><%= details.priority %>
 				</div>
+				<div>								  	   
+					<form action="/uploadfile" enctype="multipart/form-data" method="POST"> 
+						<input type="file" name="myFile" />
+						<input type="submit" value="Upload a file"/>
+					</form><br/>
+				</div>
+				
 				<a href="/tasks/edit/<%= details._id %>" class="edit">
 					<span class="fas fa-edit"></span>
 				</a>
@@ -70,7 +78,11 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 	Add a new task
   </button>
-  
+
+<a href="/myFiles" class="upload">
+	view all uploaded files
+</a>
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -120,6 +132,7 @@
 	</div>
   </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

@@ -24,6 +24,11 @@ body {
 	color : #20bd20;
 }
 
+.upload{
+	color : #515A5A;
+	text-align: center;
+}
+
 .task {
 	width: 400px;
 }

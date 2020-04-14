@@ -3,6 +3,18 @@ var express = require('express');
 var router = express.Router();
 //used to direct specific paths
 const path = require("path");
+const multer = require('multer');
+
+// SET STORAGE
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+var upload = multer({ storage: storage })
 
 //Required Controllers
 var task_controller = require('../controllers/taskController');
@@ -49,6 +61,10 @@ router.get('/tasks/edit/:id', task_controller.get_edit);
 
 router.post('/tasks/edit/:id', task_controller.post_edit);
 
+router.post('/uploadfile', upload.single('myFile'), task_controller.uploadfile);
+
+router.get('/myFiles', task_controller.getFiles);
+router.get('/myFiles/:id', task_controller.getFileById);
 /****Login Routes****/
 //http://localhost:3000/user/signup
 router.post('/user/signup', user_controller.user_auth);
