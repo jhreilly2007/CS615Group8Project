@@ -68,7 +68,15 @@ exports.get_edit = function(request, response){
 //Update TASK List Post Function
 exports.post_edit = function(request, response){
     var id = request.params.id;
-    Task.findByIdAndUpdate(id, { content: request.body.content }, err => {
+    if(request.body.priority==null){
+        request.body.priority =request.body.default;
+    }
+    Task.findByIdAndUpdate(id, 
+        { name: request.body.name, 
+          description: request.body.description,
+          resource: request.body.resource,
+          priority: request.body.priority
+        }, err => {
         if (err) return response.send(500, err);
         response.redirect('/tasks');
     });

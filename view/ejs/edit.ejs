@@ -12,53 +12,85 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-md">
-		<a class="navbar-brand" href="#">Tasks</a>
-		<button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="main-navigation">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="/welcome">Home</a>
-				</li>
+  <nav class="navbar navbar-expand-md">
+		<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="welcome">Home</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Edit</li>
+		</ol>
+		
+  	<button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
+  		<span class="navbar-toggler-icon"></span>
+  	</button>
+  	
+	  <div class="collapse navbar-collapse" id="main-navigation">
 
-				<li class="nav-item">
-        			<a class="nav-link" href="/groups">Groups</a>
-      			</li>
-
-      			<li class="nav-item">
-        			<a class="nav-link" href="/user/logout">Log Out</a>
-      			</li>
-      		</ul>
-      	</div>
-      </nav>
+		<ul class="navbar-nav">
+		  <li class="nav-item">
+			<a class="nav-link" href="/about">About</a>
+		  </li>
+  
+		  <li class="nav-item">
+			<a class="nav-link" href="/groups">Groups</a>
+		  </li>
+	
+		  <li class="nav-item">
+			<a class="nav-link" href="/tasks">Tasks</a>
+		  </li>
+  
+		  <li class="nav-item">
+			<a class="nav-link" href="/user/logout">Log Out</a>
+		  </li>
+		</ul>
+	  </div>
+	
+  </nav>
+  
+  <body>
 
       <div class="d-flex flex-column bd-highlight mb-3 task-box">
-      	<h2>List of Tasks</h2>
+      	<h2>Edit Task</h2>
       	<div class="p-2 bd-highlight">
-      		<form action="" method="POST" class="task-header">
-      			<input type="text" placeholder="Edit Task" name="content">
-      			<button type="submit">
-					<span class="fas fa-check update"></span>
-				</button>
-			</form>
-			
-			<ul class="task-list">
+
+      		<ul class="task-list">
 				<% myTasks.forEach(details => { %>
 				<% if (details._id == idTask) { %>
 				<li class="task-list-item">
 					<form action="/tasks/edit/<%= details._id %>" method="POST">
-						<input type="text" value="<%= details.content %>" name="content">
-						<button type="submit"><span class="fas fa-check"></button>
-						<a href="/tasks" class="cancel"><span class="fas fa-times"></a>
-					</form>
+						<input type="text" value="<%= details.name %>" name="name">
 				</li>
+				 <li class="task-list-item">
+						<input type="text" value="<%= details.description %>" name="description">
+				</li>
+				 <li class="task-list-item">
+						<input type="text" value="<%= details.resource %>" name="resource">
+				</li>
+				<li class="task-list-item">
+						<input type="text" value="<%= details.priority %>" name="default" readonly>
+				</li>
+				<li class="task-list-item">
+					<label for="TaskPriority"><h6>Edit Priority</h6></label>
+					<div class="form-check form-check-inline">
+						<input type="radio" name="priority" id="inlineRadio1" value="High">
+						<label for="inlineRadio1">High</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input type="radio" name="priority" id="inlineRadio2" value="Medium">
+						<label for="inlineRadio2">Medium</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input type="radio" name="priority" id="inlineRadio3" value="Low">
+						<label for="inlineRadio3">Low</label>
+					</div>
+				</li>
+				<li class="task-list-item">
+					<button type="submit" class="btn btn-primary btn-sm btn-block">Update</button>
+				</li>
+			</form>
 
-				<% } else { %>
+			<% } else { %>
 				<li class="task-list-item">
 					<div class="task-list-item-name">
-						<%= details.content %>
+						<%= details.name %>
 					</div>
 					<a href="/tasks/edit/<%= details._id %>" class="edit">
 						<span class="fas fa-edit"></span>
