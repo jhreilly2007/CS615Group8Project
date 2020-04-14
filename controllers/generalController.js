@@ -23,7 +23,7 @@ exports.welcome = function(request, response) {
         }
 };
 
-//only allow access to a logged in user
+//only allow access of GROUPS to a logged in user
 exports.groups = function(request, response) {
 	if(request.session.user) {
     response.render(path.resolve('view/ejs/groups.ejs')) 

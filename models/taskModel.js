@@ -6,8 +6,10 @@ var Schema = mongoose.Schema;
 
 // Setup mongoDB Schema
 var taskSchema = new Schema({
-	content: { type: String, required: true },
-	date: { type: Date, default: Date.now }
+    name: {type: String, required: true, max: 100},	
+    description: {type: String, required: true},
+    resource: {type: String, required: false},
+    priority: {type: String, required: false}
 });
 
 module.exports = mongoose.model('Task', taskSchema);

@@ -41,12 +41,12 @@ body {
 	box-shadow: 0 0 8px 0 dodgerBlue;
 }
 .task-header button {
-	color: white;
-	border: none;
-	border-radius: 50%;
-	cursor: pointer;
-	padding: 5px;
-	background-color: #f2f6e9;
+	width: 70px;
+	height: 70px;
+	padding: 10px 16px;
+	font-size: 24px;
+	line-height: 1.33;
+	border-radius: 35px;
 }
 .task-list-item {
 	color: #f2f6e9;
@@ -61,6 +61,9 @@ body {
 .task-list-item form {
 	width: 100%;
 	display: flex;
+}
+.task-list-item-name {
+	color: "white";
 }
 .task-list-item input {
 	flex-grow: 2;
@@ -100,4 +103,16 @@ body {
 	margin-right: 5px;
 	cursor:pointer;
 	text-decoration: none;
+}
+
+ol.breadcrumb {
+	padding: 10px 16px;
+	list-style: none;
+	background-color: #515A5A;;
+  }
+
+ol.breadcrumb li {
+display: inline;
+font-size: 18px;
+color: #f2f6e9;
 }
