@@ -5,9 +5,9 @@
 #### to start: npm start
 
 -Backend is working. User authentication is working. Password is encypted before storing in database. Authorization is working using Express-sessions. User must be logged in to access task or groups. We can change tasks etc and details but structure is in place and working.
--User can add/ delete and edit all task params not just tot just title. Tasks are showing on the website to authorized users. 
+-User can add/ delete and edit all task params not just title. Tasks are showing on the website to any logged in user. 
 
--user can upload a file and retrieve it. (need to do a bit more work on the client side for file retrieval but the functionality s working on the backend)
+-user can upload a file and retrieve it. (need to do a bit more work on the client side for file retrieval but the functionality is working on the server side)
 
 ### Goals of the project:
 Develop a data-model (realisable in JSON), together with an accompanying RESTful API for the collaborative management of tasks.
