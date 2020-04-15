@@ -28,6 +28,10 @@ body {
 	color : #515A5A;
 	text-align: center;
 }
+.back{
+	color : #515A5A;
+	position: right;
+}
 
 .task {
 	width: 400px;
@@ -36,6 +40,14 @@ body {
 	text-align: center;
 	padding: 30px;	
 	font-size: 2em;/*parent child 1m to 2m*/
+	text-transform: capitalize;
+}
+
+.task-box h4 {
+	text-align: center;
+	padding-top: 20px;	
+	font-size: 2em;/*parent child 1m to 2m*/
+	text-transform: capitalize;
 }
 
 .task-header input {

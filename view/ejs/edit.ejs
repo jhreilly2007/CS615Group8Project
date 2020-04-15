@@ -23,27 +23,45 @@
   	</button>
   	
 	  <div class="collapse navbar-collapse" id="main-navigation">
+<<<<<<< HEAD
 
 		<ul class="navbar-nav">
 		  <li class="nav-item">
 			<a class="nav-link" href="/about">About</a>
 		  </li>
+=======
+
+		<ul class="navbar-nav">
+
+			<li class="nav-item">
+				<a class="nav-link" href="/tasks">Tasks</a>
+			</li>
+>>>>>>> 7e567ff09f3d5cc5e92c204cde6e79f1cddd810b
   
 		  <li class="nav-item">
 			<a class="nav-link" href="/groups">Groups</a>
 		  </li>
 	
 		  <li class="nav-item">
+<<<<<<< HEAD
 			<a class="nav-link" href="/tasks">Tasks</a>
+=======
+			<a class="nav-link" href="/about">About</a>
+>>>>>>> 7e567ff09f3d5cc5e92c204cde6e79f1cddd810b
 		  </li>
   
 		  <li class="nav-item">
 			<a class="nav-link" href="/user/logout">Log Out</a>
 		  </li>
+<<<<<<< HEAD
+=======
+		  
+>>>>>>> 7e567ff09f3d5cc5e92c204cde6e79f1cddd810b
 		</ul>
 	  </div>
 	
   </nav>
+<<<<<<< HEAD
   
   <body>
 
@@ -91,19 +109,80 @@
 				<li class="task-list-item">
 					<div class="task-list-item-name">
 						<%= details.name %>
+=======
+
+  <div class="d-flex flex-column bd-highlight mb-3 task-box">
+  	<h2>Edit Tasks</h2>
+
+  	<ul class="task-list">
+  		<% myTasks.forEach(details => { %>
+		<% if (details._id == idTask) { %>
+		<form action="/tasks/edit/<%= details._id %>" method="POST">
+			<h4>Edit : <%= details.name %></h4>
+			<a href="/tasks">
+				<span class="fa fa-angle-double-left back"></span>
+			</a>
+
+			<li class="task-list-item">
+				<input type="text" value="<%= details.name %>" name="name">
+			</li>
+				  
+			<li class="task-list-item">
+				<input type="text" value="<%= details.description %>" name="description">
+			</li>
+				  
+		    <li class="task-list-item">
+				<input type="text" value="<%= details.resource %>" name="resource">
+			</li>
+
+			<li class="task-list-item">
+				<input type="text" value="<%= details.priority %>" name="default" readonly>
+			</li>
+
+			<li class="task-list-item">
+				<div>
+					<label for="TaskPriority"><h5>Edit Priority : &nbsp</h5>
+					</label>
+					<div class="form-check form-check-inline">
+						<input type="radio" name="priority" id="inlineRadio1" value="High">
+						<label for="inlineRadio1">High</label>
 					</div>
-					<a href="/tasks/edit/<%= details._id %>" class="edit">
-						<span class="fas fa-edit"></span>
-					</a>
-					<a href="/tasks/remove/<%= details._id %>" class="remove">
-						<span class="fas fa-times"></span>
-					</a>
-				</li>
-				<% } %>
-				<% }) %>
-			</ul>
-		</div>
-	</div>
+					  
+					<div class="form-check form-check-inline">
+						<input type="radio" name="priority" id="inlineRadio2" value="Medium">
+						<label for="inlineRadio2">Medium</label>
+					  </div>
+					
+					<div class="form-check form-check-inline">
+						<input type="radio" name="priority" id="inlineRadio3" value="Low">
+						<label for="inlineRadio3">Low</label>
+>>>>>>> 7e567ff09f3d5cc5e92c204cde6e79f1cddd810b
+					</div>
+				</div>
+			</li>
+
+			<li class="task-list-item">
+				<button type="submit" class="btn btn-primary btn-sm btn-block">Update</button>
+			</li>
+		</form>
+		<br/></br>
+
+		<% } else { %>
+		<li class="task-list-item">
+			<div class="task-list-item-name">
+				<%= details.name %>
+			</div>
+			<a href="/tasks/edit/<%= details._id %>" class="edit">
+				<span class="fas fa-edit"></span>
+			</a>
+			
+			<a href="/tasks/remove/<%= details._id %>" class="remove">
+				<span class="fas fa-times"></span>
+			</a>
+		</li>
+		<% } %>
+		<% }) %>
+	</ul>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

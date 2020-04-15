@@ -4,17 +4,33 @@ var router = express.Router();
 //used to direct specific paths
 const path = require("path");
 const multer = require('multer');
+const GridFsStorage = require('multer-gridfs-storage');
+const crypto = require('crypto');
+var env = require('dotenv').config();
+
 
 // SET STORAGE
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
-  }
-})
-var upload = multer({ storage: storage })
+var storage = new GridFsStorage({
+	url: process.env.DB_URI,
+	file: (req, file) => {
+		return new Promise((resolve, reject) => {
+			crypto.randomBytes(16, (err, buf) => {
+				if (err) {
+					return reject(err);
+				}
+				//const filename = buf.toString('hex') + path.extname(file.originalname);
+				const filename = file.originalname;
+				const fileInfo = {
+					filename: filename,
+					bucketName: 'uploads'
+				};
+				resolve(fileInfo);
+			});
+		});
+	}
+});
+
+const upload = multer({ storage });
 
 //Required Controllers
 var task_controller = require('../controllers/taskController');
@@ -63,8 +79,9 @@ router.post('/tasks/edit/:id', task_controller.post_edit);
 
 router.post('/uploadfile', upload.single('myFile'), task_controller.uploadfile);
 
-router.get('/myFiles', task_controller.getFiles);
-router.get('/myFiles/:id', task_controller.getFileById);
+router.get('/upload/files', task_controller.getFiles);
+
+router.get('/upload/files/:id', task_controller.getFileById);
 /****Login Routes****/
 //http://localhost:3000/user/signup
 router.post('/user/signup', user_controller.user_auth);

@@ -5,7 +5,8 @@ body {
 }
 /*--- navigation bar ---*/
 .navbar {
-  background:#515A5A;
+  /*background:#515A5A;*/
+  background:#0394fc;;
 }
 .nav-link,
 .navbar-brand {
@@ -24,7 +25,8 @@ body {
 
 /*--- background image ---*/
 .header {
-  background-image: url('../images/books2.jpeg');
+  /*background-image: url('../images/books2.jpeg');*/
+  background-image: url('../images/planner.jpg');
   background-size: cover;
   background-position: center;
   position: relative;
