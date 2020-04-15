@@ -6,7 +6,18 @@ const multer = require('multer');
 var fs = require('fs-extra');   
 var mongoose = require('mongoose');
 var db = mongoose.connection;
+const Grid = require("gridfs-stream");
 const { MongoClient, ObjectId } = require('mongodb');
+
+//Configuration for retrieving file from mongodb 
+//using gridfs-stream
+let gfs;
+
+db.once("open", () => {
+  gfs = Grid(db.db, mongoose.mongo);
+  gfs.collection("uploads");
+  console.log("Connection Successful");
+});
 
 //This section relates to TASKS only!
 /****TASK LIST SECTION****/
@@ -86,68 +97,44 @@ exports.post_edit = function(request, response){
     });
 }
 
+//Upload a file usng gridfs-stream
 exports.uploadfile = function(request, response){
-    var myfile = request.file;
-    console.log(myfile);
+    request.file.filename = request.file.filename + path.extname(request.file.originalname)
+    console.log('File Successfully uploaded to Database');
+    response.redirect('/upload/files')//for now just to show all files uploaded
+};
 
-    if (!myfile) {
-        const error = new Error('You have not chosen a file to upload')
-        error.httpStatusCode = 400
-        //temporary response
-        return response.send(error + '<br><a href="/tasks">back to Tasks</a>');
-    } 
-
-    var file = fs.readFileSync(request.file.path);
-    var encode_file = file.toString('base64');
-
-    var uploadedFile = {
-        name: request.file.originalname,
-        contentType: request.file.mimetype,
-        file:  new Buffer(encode_file, 'base64')
-    };
-    console.log(uploadedFile);
-    db.collection('myFiles').insertOne(uploadedFile,(err, result) => {
-        console.log(result)
-
-        if (err) 
-            return console.log(err)
-
-        console.log('File uploaded Success');
-        return response.redirect('/tasks');  
-  }) 
-}
-
+//Retrieve all files stored by filename
 exports.getFiles = function(request, response){
 
-    db.collection('myFiles').find().toArray((err, result) => {
+    db.collection('uploads.files').find().toArray((err, result) =>{
 
-        //var allFiles= result.map(element => element._id);
-        var allFiles= result.map(element => element.name);
+        var allFiles= result.map(files => files.filename);
 
         if (err) return 
             console.log(err)
 
-        response.send(allFiles)
+        response.send(allFiles)//send a list of all files 
     })
 };
 
-//this is downloads the file when id is entered
-//myFiles/id
-exports.getFileById = function (request, response){
+//retrieve a file by using a filename and gridfs-stream
+exports.getFileById = function(request, response){
+    gfs.files.findOne({ filename: request.params.id }, (err, file) =>{
 
-    var filename = request.params.id;
+        console.log(file); //for testing
+        //read the ouput to the browser
+        const readstream = gfs.createReadStream(file.filename);
 
-    db.collection('myFiles').findOne({'_id': ObjectId(filename) },
-        (err, result) => {
-            if (err) 
-                return console.log(err)
+        readstream.on('error', function (err) {
 
-            var type = result.contentType;
-            var data = result.file.buffer;
-            response.send(result.name);
-   
-  })
-}
+            console.log('There is a Problem!', error);
+            throw err;
+        });
+        console.log(response);
+        readstream.pipe(response);
+  });
+};
 
 
 
