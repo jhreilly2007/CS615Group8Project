@@ -80,7 +80,6 @@ exports.get_edit = function(request, response){
 exports.post_edit = function(request, response){
     var id = request.params.id;
     if(request.body.priority==null){
-<<<<<<< HEAD
         request.body.priority =request.body.default;
     }
     Task.findByIdAndUpdate(id, 
@@ -88,19 +87,6 @@ exports.post_edit = function(request, response){
           description: request.body.description,
           resource: request.body.resource,
           priority: request.body.priority
-=======
-        var default_priority = request.body.default;
-    } else{
-        default_priority = request.body.priority;
-    }
-    Task.findByIdAndUpdate(id, 
-        { 
-            name: request.body.name,
-            description: request.body.description, 
-            resource: request.body.resource, 
-            priority: default_priority 
-
->>>>>>> 7e567ff09f3d5cc5e92c204cde6e79f1cddd810b
         }, err => {
         if (err) return response.send(500, err);
         response.redirect('/tasks');
