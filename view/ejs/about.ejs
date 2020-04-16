@@ -2,76 +2,193 @@
 <html lang="en">
 
 <head>
-
-  <title>About</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet' type='text/css' href='/css/about.css'/>
   <link rel='stylesheet' type='text/css' href='/css/main.css'/>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-</head>
- 
-<body>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <nav class="navbar navbar-expand-md">
-    <a class="navbar-brand" href="#">About us</a>
-    <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+		<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="welcome">Home</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Tasks</li>
+		</ol>
+		
+  	<button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
+  		<span class="navbar-toggler-icon"></span>
+  	</button>
+  	
+	  <div class="collapse navbar-collapse" id="main-navigation">
+
+		<ul class="navbar-nav">
+		  <li class="nav-item">
+			<a class="nav-link" href="/about">About</a>
+		  </li>
   
-    <div class="collapse navbar-collapse" id="main-navigation">
-
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/about">About</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="/groups">Groups</a>
-        </li>
+		  <li class="nav-item">
+			<a class="nav-link" href="/groups">Groups</a>
+		  </li>
+	
+		  <li class="nav-item">
+			<a class="nav-link" href="/tasks">Tasks</a>
+		  </li>
   
-        <li class="nav-item">
-          <a class="nav-link" href="/tasks">Tasks</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="/user/logout">Log Out</a>
-        </li>
-      </ul>
-    </div>
+		  <li class="nav-item">
+			<a class="nav-link" href="/user/logout">Log Out</a>
+		  </li>
+		</ul>
+	  </div>
+	
   </nav>
-
+</head>
   
-  <header class="page-header about container-fluid">
-    <!-- <div class="description"> -->
-    <div class="overlay">
-      <h1 style="color:#0394fc">This is who we are!</h1>
-      <p style="color:#FFFFFF">Sandeep, Mishaal and Janice</p>
-      <p style="color:#FFFFFF">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec neque et ante ornare
-        posuere at in tellus. Donec tortor mauris, blandit id mattis non, bibendum mattis ligula. Aliquam id tellus
-        accumsan, placerat sapien non, gravida tellus. Mauris nibh nibh, ultrices non semper id, lacinia ac libero.
-        Aenean in auctor tellus. Ut vitae est eget elit congue placerat. Sed scelerisque, tellus quis vehicula pharetra,
-        erat urna dignissim mauris, ut finibus augue libero quis lacus.
+  <!-- Team -->
+  <section id="team" class="pb-5">
+      <div class="container">
+          <h5 class="section-title h1">OUR TEAM</h5>
+          <div class="row">
+              <!-- Team member -->
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                  <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                      <div class="mainflip">
+                          <div class="frontside">
+                              <div class="card">
+                                  <div class="card-body text-center">
+                                      <p><img class=" img-fluid" src="/images/mishaal.jpg" alt="card image"></p>
+                                      <h4 class="card-title">Mishaal Ijaz</h4>
+                                      <p class="card-text">Masters in Dependable Systems.</p>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="backside">
+                              <div class="card">
+                                  <div class="card-body text-center mt-4">
+                                      <h4 class="card-title">Mishaal Ijaz</h4>
+                                      <p class="card-text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.</p>
+                                      <ul class="list-inline">
+                                          <li class="list-inline-item">
+                                              <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                  <i class="fa fa-facebook"></i>
+                                              </a>
+                                          </li>
+                                          <li class="list-inline-item">
+                                              <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                  <i class="fa fa-twitter"></i>
+                                              </a>
+                                          </li>
+                                          <li class="list-inline-item">
+                                              <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                  <i class="fa fa-skype"></i>
+                                              </a>
+                                          </li>
+                                          <li class="list-inline-item">
+                                              <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                  <i class="fa fa-google"></i>
+                                              </a>
+                                          </li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- ./Team member -->
+              <!-- Team member -->
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                  <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                      <div class="mainflip">
+                          <div class="frontside">
+                              <div class="card">
+                                  <div class="card-body text-center">
+                                      <p><img class=" img-fluid" src="/images/janice.jpg" alt="card image"></p>
+                                      <h4 class="card-title">Janice Reilly</h4>
+                                      <p class="card-text">Masters in Software Engineering.</p>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="backside">
+                              <div class="card">
+                                  <div class="card-body text-center mt-4">
+                                      <h4 class="card-title">Janice Reilly</h4>
+                                      <p class="card-text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.</p>
+                                      <ul class="list-inline">
+                                          <li class="list-inline-item">
+                                              <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                  <i class="fa fa-facebook"></i>
+                                              </a>
+                                          </li>
+                                          <li class="list-inline-item">
+                                              <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                  <i class="fa fa-twitter"></i>
+                                              </a>
+                                          </li>
+                                          <li class="list-inline-item">
+                                              <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                  <i class="fa fa-skype"></i>
+                                              </a>
+                                          </li>
+                                          <li class="list-inline-item">
+                                              <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                  <i class="fa fa-google"></i>
+                                              </a>
+                                          </li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- ./Team member -->
+              <!-- Team member -->
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                  <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                      <div class="mainflip">
+                          <div class="frontside">
+                              <div class="card">
+                                  <div class="card-body text-center">
+                                      <p><img class=" img-fluid" src="/images/sandeep.jpg" alt="card image"></p>
+                                      <h4 class="card-title">Sandeep Kumar</h4>
+                                      <p class="card-text">Masters in Software Engineering.</p>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="backside">
+                              <div class="card">
+                                  <div class="card-body text-center mt-4">
+                                      <h4 class="card-title">Sandeep Kumar</h4>
+                                      <p class="card-text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.</p>
+                                      <ul class="list-inline">
+                                          <li class="list-inline-item">
+                                              <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                  <i class="fa fa-facebook"></i>
+                                              </a>
+                                          </li>
+                                          <li class="list-inline-item">
+                                              <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                  <i class="fa fa-twitter"></i>
+                                              </a>
+                                          </li>
+                                          <li class="list-inline-item">
+                                              <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                  <i class="fa fa-skype"></i>
+                                              </a>
+                                          </li>
+                                          <li class="list-inline-item">
+                                              <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                <i class="fa fa-google"></i>
+                                              </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <!-- Team -->
 
-        Donec congue sem a leo rhoncus congue. Curabitur et pulvinar nisi, at sollicitudin lacus. In eget sapien eros.
-        Sed blandit libero non lobortis varius. Sed elementum, dui vel tincidunt pulvinar, velit metus fermentum turpis,
-        vitae ornare sapien lorem id tortor. Proin purus elit, finibus ac gravida quis, congue nec metus. Pellentesque a
-        nisi iaculis, varius odio mattis, luctus mi. Nunc risus ipsum, finibus in viverra pellentesque, rutrum at justo.
-        Pellentesque posuere blandit elit, sit amet sollicitudin libero efficitur sit amet. Maecenas viverra ultrices
-        felis, sit amet tempor arcu sollicitudin in. Nullam at condimentum neque, et hendrerit nisl. Nullam sed sem sit
-        amet sapien efficitur pretium at sed nisl. Vivamus auctor, massa ac egestas dignissim, lectus est pharetra diam,
-        vel hendrerit leo tellus vel ipsum.</p>
-    </div>
-  </header>
-
-
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-    crossorigin="anonymous"></script>
-  <script src="/js/main.js"></script>
-
-</body>
-
-</html>
+  </html>
