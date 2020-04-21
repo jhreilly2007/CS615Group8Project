@@ -8,10 +8,12 @@
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <nav class="navbar navbar-expand-md">
-		<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a href="welcome">Home</a></li>
-		<li class="breadcrumb-item active" aria-current="page">Tasks</li>
-		</ol>
+    <div class="container">
+        <div class="btn-group btn-breadcrumb">
+            <a href="/welcome" class="btn btn-primary">Home</a>
+            <a href="#" class="btn btn-primary active">About Us</a>
+        </div>
+	</div>
 		
   	<button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
   		<span class="navbar-toggler-icon"></span>
@@ -23,15 +25,7 @@
 		  <li class="nav-item">
 			<a class="nav-link" href="/about">About</a>
 		  </li>
-  
-		  <li class="nav-item">
-			<a class="nav-link" href="/groups">Groups</a>
-		  </li>
-	
-		  <li class="nav-item">
-			<a class="nav-link" href="/tasks">Tasks</a>
-		  </li>
-  
+
 		  <li class="nav-item">
 			<a class="nav-link" href="/user/logout">Log Out</a>
 		  </li>
