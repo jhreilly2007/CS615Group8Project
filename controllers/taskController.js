@@ -95,9 +95,7 @@ exports.post_edit = function(request, response){
 
 //Upload a file usng gridfs-stream
 exports.uploadfile = function(request, response){
-    console.log("PRINT ME " +request.file)
     if(typeof request.file==='undefined'){
-        console.log("print me");
         response.send("Please upload a file <a href='/tasks'>Go Back</a>");
     }else{
     request.file.filename = request.file.filename + path.extname(request.file.originalname)
@@ -111,12 +109,13 @@ exports.getFiles = function(request, response){
 
     db.collection('uploads.files').find().toArray((err, result) =>{
 
-        var allFiles= result.map(files => files.filename);
+        var allFiles= result.map(files => files);
 
         if (err) return 
             console.log(err)
 
-        response.send(allFiles)//send a list of all files 
+        //response.send(allFiles)//send a list of all files 
+        response.render('ejs/allFiles.ejs', { myFiles: allFiles});
     })
 };
 
