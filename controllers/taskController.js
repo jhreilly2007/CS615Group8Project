@@ -95,9 +95,15 @@ exports.post_edit = function(request, response){
 
 //Upload a file usng gridfs-stream
 exports.uploadfile = function(request, response){
+    console.log("PRINT ME " +request.file)
+    if(typeof request.file==='undefined'){
+        console.log("print me");
+        response.send("Please upload a file <a href='/tasks'>Go Back</a>");
+    }else{
     request.file.filename = request.file.filename + path.extname(request.file.originalname)
     console.log('File Successfully uploaded to Database');
     response.redirect('/upload/files')//for now just to show all files uploaded
+}
 };
 
 //Retrieve all files stored by filename
