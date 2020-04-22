@@ -13,9 +13,11 @@
 </head>
 
 <body>
- 
+
   <nav class="navbar navbar-expand-md">
-    <a class="navbar-brand" href="#"><h3>Task Manager</h3></a>
+    <a class="navbar-brand" href="#">
+      <h3>Task Manager</h3>
+    </a>
     <!--<a class="navbar-brand" href="#">Welcome to Collaborative Task Sharing(CS615 Project Group 8)</a> -->
     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
       <span class="navbar-toggler-icon"></span>
@@ -24,10 +26,10 @@
       <ul class="navbar-nav">
 
         <li class="nav-item">
-         <!-- <a class="nav-link" href="#" data-toggle="modal" data-target="#signupModal">Sign up</a>-->
-         <a class="nav-link" href="#" data-toggle="modal"  data-target="#loginModal">Login</a>
+          <!-- <a class="nav-link" href="#" data-toggle="modal" data-target="#signupModal">Sign up</a>-->
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
         </li>
-        
+
         <li class="nav-item">
           <a class="nav-link" href="/about">About</a>
         </li>
@@ -45,7 +47,8 @@
     <div class="description">
       <!--<h1>Welcome to the Landing Page!</h1>-->
       <h1>Keep your team organized and connected</h1>
-      <p>With Task Manager Tool, your team can stay focused on their goals and tasks, No matter when or where they work.</p>
+      <p>With Task Manager Tool, your team can stay focused on their goals and tasks, No matter when or where they work.
+      </p>
       <!--<button type="button" class="btn btn-outline-secondary btn-lg" data-toggle="modal"
         data-target="#loginModal">Login</button>-->
     </div>
@@ -59,7 +62,7 @@
     </div>
     <% } }%>
 
-        <!--send popup alert if usernot found at login-->
+    <!--send popup alert if usernot found at login-->
     <% if ( typeof userNotFound !== 'undefined' ) {%>
     <% if (userNotFound.length){ %>
     <div class="alert alert-danger">
@@ -68,7 +71,7 @@
     </div>
     <% } }%>
 
-            <!--send popup alert if incorrect password entered-->
+    <!--send popup alert if incorrect password entered-->
     <% if ( typeof wrongPassword !== 'undefined' ) {%>
     <% if (wrongPassword.length){ %>
     <div class="alert alert-danger">
@@ -77,7 +80,7 @@
     </div>
     <% } }%>
 
-          <!--send popup alert login to see Task list-->
+    <!--send popup alert login to see Task list-->
     <% if ( typeof accessDeniedTask !== 'undefined' ) {%>
     <% if (accessDeniedTask.length){ %>
     <div class="alert alert-danger">
@@ -86,7 +89,7 @@
     </div>
     <% } }%>
 
-          <!--send popup alert login to see Welcome Page-->
+    <!--send popup alert login to see Welcome Page-->
     <% if ( typeof accessDenied !== 'undefined' ) {%>
     <% if (accessDenied.length){ %>
     <div class="alert alert-danger">
@@ -95,7 +98,7 @@
     </div>
     <% } }%>
 
-          <!--send popup alert login to see Groups Page-->
+    <!--send popup alert login to see Groups Page-->
     <% if ( typeof accessDeniedGroup !== 'undefined' ) {%>
     <% if (accessDeniedGroup.length){ %>
     <div class="alert alert-danger">
@@ -117,8 +120,9 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <form name="login" action="/user/signin" method="post">
+
+        <form name="login" action="/user/signin" method="post">
+          <div class="modal-body">
             <div class="form-group">
               <label for="email" class="col-form-label">Email:</label>
               <input type="text" class="form-control" name="email">
@@ -131,16 +135,16 @@
               <input name="recover-submit" class="btn btn-primary btn-block" value="Forgot Password?" type="submit">
               </form>
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" value="send">Sign In</button>
-        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" value="send">Sign In</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  
+
   <!--modal to sign up-->
   <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -184,7 +188,7 @@
     </div>
   </div>
 
-    
+
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
