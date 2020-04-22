@@ -47,7 +47,7 @@ exports.user_signin = function (request, response) {
             request.session.save();
             return response.render("index.ejs", userNotFound);
         } else {
-            //if emailed found, compare passwords
+            //if email found, compare passwords
             user.comparePassword(request.body.password, function(err, isMatch) {
                 if (err) throw err;
                 if (!isMatch) {
