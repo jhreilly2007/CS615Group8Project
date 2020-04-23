@@ -1,0 +1,31 @@
+.edit-list-item {
+	color: #f2f6e9;
+	padding: 10px;
+	margin-top: 10px;
+	border: none;
+	border-radius: 5px;
+	background: #515A5A;
+	display: flex;
+	flex-direction: row;
+}
+
+.edit-list-item form {
+	width: 100%;
+	display: flex;
+}
+.task-list-item-name {
+	color: "white";
+}
+.edit-list-item input {
+	flex-grow: 2;
+	margin-right: 20px;
+	margin-left: 20px;
+	border: none;
+	border-radius: 5px;
+}
+h6{
+	position: relative;
+	text-transform: uppercase;
+}
+
+

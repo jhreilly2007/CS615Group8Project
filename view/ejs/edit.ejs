@@ -6,6 +6,7 @@
 	<title>Edit Task List</title>
     <meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/css/edit.css">
 	<link rel="stylesheet" type="text/css" href="/css/tasks.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
@@ -48,37 +49,32 @@
   <body>
 
   	<div class="d-flex flex-column bd-highlight mb-3 task-box">
-  		<h2>Edit Task</h2>
       	<div class="p-2 bd-highlight">
 
       		<ul class="task-list">
       			<% myTasks.forEach(details => { %>
-				<% if (details._id == idTask) { %>
+				<!--<% if (details._id == idTask) { %>-->
 				
 				<form action="/tasks/edit/<%= details._id %>" method="POST">
-					<h4>Edit : <%= details.name %></h4>
+					<h4>Edit Task:<br/> <%= details.name %></h4>
 					<a href="/tasks">
 						<span class="fa fa-angle-double-left back"></span>
 					</a>
 
-					<li class="task-list-item">
+					<li class="edit-list-item"><h6>Task Name: </h6>
 						<input type="text" value="<%= details.name %>" name="name">
 					</li>
 
-				 	<li class="task-list-item">
+				 	<li class="edit-list-item"><h6>Task Description:</h6>
 						<input type="text" value="<%= details.description %>" name="description">
 					</li>
 				 
-				 	<li class="task-list-item">
+				 	<li class="edit-list-item"><h6>Resources:</h6>
 						<input type="text" value="<%= details.resource %>" name="resource">
 					</li>
-					
-					<li class="task-list-item">
-						<input type="text" value="<%= details.priority %>" name="default" readonly>
-					</li>
 
-					<li class="task-list-item">
-					<label for="TaskPriority"><h6>Edit Priority</h6></label>
+					<li class="edit-list-item">
+					<label for="TaskPriority"><h6><%= details.priority %> Priority</h6></label>
 					<div class="form-check form-check-inline">
 						<input type="radio" name="priority" id="inlineRadio1" value="High">
 						<label for="inlineRadio1">High</label>
@@ -92,15 +88,31 @@
 						<label for="inlineRadio3">Low</label>
 					</div>
 				</li>
-				<li class="task-list-item">
+				
+				<li class="edit-list-item">
+					<label for="TaskPrivacy"><h6>Task Privacy</h6></label>
+					<div class="form-check form-check-inline">
+						<input type="radio" name="privacy" id="inlineRadio1" value="Private">
+						<label for="inlineRadio1">Private</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input type="radio" name="privacy" id="inlineRadio2" value="Public">
+						<label for="inlineRadio2">Public</label>
+					</div>
+					</li>
+				<li class="edit-list-item">
 					<button type="submit" class="btn btn-primary btn-sm btn-block">Update</button>
 				</li>
+				
+				<input style="visibility: hidden" type="text" value="<%= details.priority %>" name="default" readonly>
+
+				<input style="visibility: hidden" type="text" value="<%= details.privacy %>" name="currentprivacy" readonly>
 			</form>
 			<br/><br/>
 
-			<% } else { %>
-				<li class="task-list-item">
-					<div class="task-list-item-name">
+			<!--<% }else { %>
+				<li class="edit-list-item">
+					<div class="edit-list-item-name">
 						<%= details.name %>
 					</div>
 					<a href="/tasks/edit/<%= details._id %>" class="edit">
@@ -110,7 +122,7 @@
 						<span class="fas fa-times"></span>
 					</a>
 				</li>
-				<% } %>
+				<% } %>-->
 				<% }) %>
 			</ul>
 		</div>
