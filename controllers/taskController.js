@@ -23,7 +23,13 @@ db.once("open", () => {
 /****TASK LIST SECTION****/
 //Create Task Database Entry
 exports.data_addtask = async function (request, response) {
-    console.log(request.session.user);
+    //console.log(request.session.user);
+    if (request.body.privacy == null) {
+        request.body.privacy = 'Public';
+    }
+    if (request.body.priority == null) {
+        request.body.priority = 'Medium';
+    }
     var task = new Task({
         email: request.session.user.email,
         name: request.body.name,
@@ -81,16 +87,21 @@ exports.get_edit = function (request, response) {
 
 //Update TASK List Post Function
 exports.post_edit = function (request, response) {
+    console.log(request.body.privacy)
     var id = request.params.id;
     if (request.body.priority == null) {
         request.body.priority = request.body.default;
+    }
+    if (request.body.privacy == null) {
+        request.body.privacy = request.body.currentprivacy;
     }
     Task.findByIdAndUpdate(id,
         {
             name: request.body.name,
             description: request.body.description,
             resource: request.body.resource,
-            priority: request.body.priority
+            priority: request.body.priority,
+            privacy: request.body.privacy
         }, err => {
             if (err) return response.send(500, err);
             response.redirect('/tasks');
