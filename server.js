@@ -62,9 +62,6 @@ app.set('view engine', 'ejs');
 
 var port = process.env.API_PORT;
 
-//mishaal's part
-// app.use('/api/resetpassword', auth);
-
 app.listen(port, () => {
     console.log('Server is running on port ' + port);
 });
