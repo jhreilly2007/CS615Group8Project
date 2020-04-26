@@ -17,7 +17,7 @@ exports.user_auth = function (request, response) {
     );
     user.save(function (err) {
         if (err) {
-            var signupFailMessage =request.session.signupFailMessage = {
+            var signupFailMessage = request.session.signupFailMessage = {
                 signupFailMessage: 'Signup Failed!'
             };
             request.session.save();
@@ -30,28 +30,28 @@ exports.user_auth = function (request, response) {
                 email: user.email,
                 password: user.password
             };
-            request.session.save();
-            response.redirect('/welcome');
-        })
+        request.session.save();
+        response.redirect('/welcome');
+    })
 };
 
 //Sign in
 exports.user_signin = function (request, response) {
     //predefined function .findOne
-    User.findOne({ 'email': request.body.email }, function(err, user){
+    User.findOne({ 'email': request.body.email }, function (err, user) {
         //no email matching user, throw error
         if (!user) {
-            var userNotFound =request.session.userNotFound = {
+            var userNotFound = request.session.userNotFound = {
                 userNotFound: 'Username not Found! Please try again'
             };
             request.session.save();
             return response.render("index.ejs", userNotFound);
         } else {
             //if email found, compare passwords
-            user.comparePassword(request.body.password, function(err, isMatch) {
+            user.comparePassword(request.body.password, function (err, isMatch) {
                 if (err) throw err;
                 if (!isMatch) {
-                    var wrongPassword =request.session.wrongPassword = {
+                    var wrongPassword = request.session.wrongPassword = {
                         userNotFound: 'Wrong Password! Please try again'
                     };
                     request.session.save();
@@ -81,6 +81,7 @@ exports.user_logout = function (request, response) {
     }
 };
 
+
 exports.user_details = function (request, response) {
     if (request.session.user) {
         var userDetails = request.session.user;
@@ -88,6 +89,19 @@ exports.user_details = function (request, response) {
     } else {
         response.send();
     }
+};
+
+
+exports.user_all_details = function (request, response) {
+    // User.find({ $or: [{ fName: request.session.user.fName}] }, function (err, userName) {
+    User.find({}, function (err, detail) {
+        response.send(detail);
+    });
+};
+//function return all user details of user
+exports.user_all_details_func = function () {
+    var result = User.find({});
+    return result;
 };
 
 exports.signup_failed = function (request, response) {

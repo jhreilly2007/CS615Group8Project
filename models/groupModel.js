@@ -6,12 +6,11 @@ var Schema = mongoose.Schema;
 
 // Setup mongoDB Schema
 var GroupSchema = new Schema({
-    name: {type: String, required: true, max: 100},	
-    email: {type: String, required: true},
-    gender: {type: String, required: true},
-    phone: {type: String, required: true}
+    name: { type: String, required: true, max: 100 },
+    members:  [{type: String}],
+    admin: { type: String }
 });
 
-module.exports = mongoose.model('Group', GroupSchema);
+module.exports = mongoose.model('Group', GroupSchema, 'groups');
 
 
