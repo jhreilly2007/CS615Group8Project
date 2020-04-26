@@ -1,114 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
+
+  <title>Groups</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet' type='text/css' href='/css/main.css' />
   
-    <title>Groups</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' type='text/css' href='/css/main.css'/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <nav class="navbar navbar-expand-md">
-      <div class="btn-group btn-breadcrumb">
-        <a href="/welcome" class="btn btn-primary">Home</a>
-        <a href="#" class="btn btn-primary active">Groups</a>
-      </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <nav class="navbar navbar-expand-md">
+    <div class="btn-group btn-breadcrumb">
+      <a href="/welcome" class="btn btn-primary">Home</a>
+      <a href="#" class="btn btn-primary active">Groups</a>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
     </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/tasks">Tasks</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Groups</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/user/logout">Log Out</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </head>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/tasks">Tasks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Groups</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/logout">Log Out</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</head>
 
 <body>
+
   <header class="page-header tasks container-fluid">
-    <div class="overlay"></div>
-    <div class="description">
+
+
+
+    <div class="row px-md-5">
+      <div class="col-lg-12"><br />
+        <button type="button" style="float:right" class="btn btn-primary" data-toggle="modal" data-target="#groupModal">
+          <i class="fa fa-plus" aria-hidden="true"></i> Create New Group
+        </button></div>
+      <br /><br /><br />
+      <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
+        <div class="card" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+          <div class="card-header" style=" background-color:#0394fc;"><h4>Groups(Admin)</h4></div>
+          <div class="card-body" style=" background-color: #6cb7da;">
+            <ul>
+              <% if ( typeof adminDetails !== 'undefined'){ %>
+              <% for(var item in adminDetails) { %>
+              <li><h5><%= adminDetails[item].name %></h5>
+                <!-- <a href="/tasks/edit/<%= adminDetails[item]._id %>" class="edit">
+                  <span class="fas fa-edit"></span>
+                </a> -->
+                <!-- <a href="/group/delete/<%= adminDetails[item]._id %>" class="remove">
+                  <span class="fas fa-times"></span>
+                </a> -->
+              </li>
+              <% }} %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
+        <div class="card" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+          <div class="card-header" style="background-color:#0394fc;"><h4>Group(Member)</h4></div>
+          <div class="card-body" style="background-color: #6cb7da;">
+            <ul>
+              <% if ( typeof memberDetails !== 'undefined'){ %>
+              <% for(var item in memberDetails) { %>
+              <li><h5><%= memberDetails[item].name %></h5></li>
+              <% }} %>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- <div class="description">
       <h1>My Groups</h1>
       <p>I proposed changing this 'tasks' functionality to allow the user to create and manage groups.</br></br>
-      This section needs to be developed to allow the user to create and manage groups</br></br>
-      The data entry functionality is redundant</p>
+        This section needs to be developed to allow the user to create and manage groups</br></br>
+        The data entry functionality is redundant</p>
+      </div> -->
 
-      <button type="button" class="btn btn-outline-secondary btn-lg" data-toggle="modal" data-target="#dataModal">Data Entry</button>
-    </div>
 
       <!--send popup alert if task not entered-->
-  <% if ( typeof dataEntryError !== 'undefined' ) {%>
-  <% if (dataEntryError.length){ %>
-  <div class="alert alert-danger">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong><%=dataEntryError%></strong>
-  </div>
-  <% } }%>
+      <% if ( typeof dataEntryError !== 'undefined' ) {%>
+      <% if (dataEntryError.length){ %>
+      <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong><%=dataEntryError%></strong>
+      </div>
+      <% } }%>
 
-    <!--send popup alert if task entered correctly-->
-  <% if ( typeof dataEntrySuccess !== 'undefined' ) {%>
-  <% if (dataEntrySuccess.length){ %>
-  <div class="alert alert-success">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong><%=dataEntrySuccess%></strong>
-  </div>
-  <% } }%>
-
-</header>
+      <!--send popup alert if task entered correctly-->
+      <% if ( typeof dataEntrySuccess !== 'undefined' ) {%>
+      <% if (dataEntrySuccess.length){ %>
+      <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong><%=dataEntrySuccess%></strong>
+      </div>
+      <% } }%>
+  </header>
 
   <!--modal to create a data entry-->
-<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create New Group??</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      
-      <div class="modal-body">
-        <form name="dataEntry" action="/group/create" method="post"> 
-          <div class="form-group">
-            <label for="name" class="col-form-label">Name:</label>
-            <input type="text" class="form-control" name="name">
+  <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Group</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <form name="dataEntry" onsubmit="onSubmit()">
+          <!-- <form action="/groups" method="POST"></form> -->
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="name" class="col-form-label">Group Name:</label>
+              <input type="text" class="form-control" name="name" id="name">
+            </div>
+
+            <div class="form-group">
+              <label for="members" class="col-form-label">Select Group Members</label>
+              <select name="members" class="selectpicker form-control mt-4" data-live-search="true"
+                data-actions-box="true" multiple title="Choose one of the following..." data-header="Select Users"
+                id="members">
+                <!--send popup alert login to see Welcome Page-->
+                <% if ( typeof userDetails !== 'undefined' ) {
+                  var userFinal;
+                  userFinal = userDetails;
+                  %>
+                <% for(var i=0; i < userDetails.length; i++) {%>
+                <option value="<%=userDetails[i].fName%> <%=userDetails[i].lName%>"><%=userDetails[i].fName%>
+                  <%=userDetails[i].lName%></option>
+                <% } %>
+                <% } else{
+                  userFinal = '';
+                }%>
+              </select>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="gender" class="col-form-label">Gender:</label>
-            <input type="text" class="form-control" name="gender">
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" value="send">Save</button>
           </div>
-          <div class="form-group">
-            <label for="email" class="col-form-label">Email:</label>
-            <input type="text" class="form-control" name="email">
-          </div>
-          <div class="form-group">
-            <label for="phone" class="col-form-label">Phone:</label>
-            <input type="text" class="form-control" name="phone">
-          </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" value="send" >Enter</button>
+
         </form>
       </div>
     </div>
   </div>
-</div>
- 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/js/main.js"></script>
+
+
+  <script type="text/javascript">
+    function onSubmit() {
+      event.preventDefault();
+      var gpName = $("#name").val();
+      var members = $("#members").val();
+      var grpMembers = [];
+      var adminUser = "";
+      var userDetails = JSON.parse('<%-JSON.stringify(userFinal)%>');
+      members.map(member => {
+        var user = member.split(" ");
+        userDetails.forEach(userDetail => {
+          if (userDetail.fName === user[0] && userDetail.lName === user[1]) {
+            grpMembers.push(userDetail.email);
+          }
+        });
+      });
+      $.get("http://localhost:3000/user/details", function (result) {
+        $.post("http://localhost:3000/group/create", { name: gpName, members: grpMembers, admin: result.email }, function (res) {
+          console.log(res);
+        });
+      });
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js""></script>
+  <script src=" https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+  <!-- <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script> -->
+  <script type="text/javascript" src="../js/main.js"></script>
 
 </body>
+
 </html>

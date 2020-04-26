@@ -1,6 +1,7 @@
 //This is the Controller in the MVC
 
 var Group = require('../models/groupModel');
+var user_controller = require('../controllers/userController');
 const path = require("path");
 
 //This section relates to Groups only!
@@ -11,29 +12,27 @@ exports.test = function (request, response) {
 
 //Create Database Entry
 exports.group_create = function (request, response) {
-    var group = new Group(
-        {
-            name: request.body.name,
-            gender: request.body.gender,
-            phone: request.body.phone,
-            email: request.body.email
-        }
-    );
+    console.log(request.body);
+    var group = new Group({
+        name: request.body.name,
+        members: request.body["members[]"],
+        admin: request.body.admin
+    });
     group.save(function (err) {
         if (err) {
-            var dataEntryError =request.session.dataEntryError = {
-            dataEntryError: 'An Error Occurred! Data was not entered'
+            var dataEntryError = request.session.dataEntryError = {
+                dataEntryError: 'An Error Occurred! Data was not entered'
             };
             request.session.save();
-            return response.render('ejs/groups.ejs', dataEntryError);
+            //response.render('ejs/groups.ejs', { userDetails: undefined }, dataEntryError);
 
-       }else{
-            var dataEntrySuccess =request.session.dataEntrySuccess = {
-            dataEntrySuccess: 'Data Successfully Added'
+        } else {
+            console.log("added");
+            var dataEntrySuccess = request.session.dataEntrySuccess = {
+                dataEntrySuccess: 'Data Successfully Added'
             };
             request.session.save();
-            console.log(request.session.dataEntrySuccess);
-            return response.render('ejs/groups.ejs', dataEntrySuccess);
+            //response.render('ejs/groups.ejs', { userDetails: undefined }, dataEntrySuccess);
         }
     })
 };
@@ -47,6 +46,18 @@ exports.group_details = function (request, response) {
         response.send(data + ' <a href=\"http://localhost:3000\">Back to Home<\/a>');
     })
 };
+
+//Function returning all group where user is admin
+exports.group_admin_details_func = function (currentuser) {
+    var result = Group.find({ admin: currentuser.email });
+    return result;
+};
+
+exports.group_member_details_func = function (currentuser) {
+    var result = Group.find({ members: currentuser.email });
+    return result;
+};
+
 
 //This functionality is not being used in the application...yet!
 //Update database function //responses are temporary for testing
@@ -66,7 +77,12 @@ exports.group_delete = function (request, response) {
 
     Group.findByIdAndRemove(request.params.id, function (err) {
         //temporary response
-        if (err) response.status(400).send(err +' <a href=\"http://localhost:3000\">Back to Home<\/a>');
-        response.send('Deleted successfully! <a href=\"http://localhost:3000\">Back to Home<\/a>');
+        // if (err) response.status(400).send(err + ' <a href=\"http://localhost:3000\">Back to Home<\/a>');
+        // response.send('Deleted successfully! <a href=\"http://localhost:3000\">Back to Home<\/a>');
+        if (err) {
+                return response.send(500, err);
+            }
+            response.redirect("/group");
     })
 };
+

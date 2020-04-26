@@ -1,38 +1,73 @@
 //General routes
 const path = require("path");
-//Using express-sessions to determin if user is logged in 
-var session = require('express-session'); 
+var User = require('../models/userModel');
+var Group = require('../models/groupModel');
 
-exports.index = function(request, response) {
+//Using express-sessions to determin if user is logged in 
+var session = require('express-session');
+var user_controller = require('../controllers/userController');
+
+//Determine which group user belongs to
+var group_controller = require('../controllers/groupController');
+
+
+exports.index = function (request, response) {
     response.render(path.resolve('view/index.ejs'));
 };
 
-exports.about = function(request, response) {
-    response.render(path.resolve('view/ejs/about.ejs'))   
+exports.about = function (request, response) {
+    response.render(path.resolve('view/ejs/about.ejs'))
 };
 
-exports.welcome = function(request, response) {
-	if(request.session.user) {
-    response.render(path.resolve('view/ejs/welcome.ejs')) 
+exports.welcome = function (request, response) {
+    if (request.session.user) {
+        response.render(path.resolve('view/ejs/welcome.ejs'))
     } else {
-        var accessDenied =request.session.accessDenied = {
-                accessDenied: 'You must be logged in to view this page!'
-            };
-            request.session.save();
-            return response.render('index.ejs', accessDenied);
-        }
+        var accessDenied = request.session.accessDenied = {
+            accessDenied: 'You must be logged in to view this page!'
+        };
+        request.session.save();
+        return response.render('index.ejs', accessDenied);
+    }
 };
 
+//only allow access of all Users to a logged in user
+exports.groups = async function (request, response) {
+    if (request.session.user) {
+        var groupAdminData = await group_controller.group_admin_details_func(request.session.user).exec();
+        var groupMemberData = await group_controller.group_member_details_func(request.session.user).exec();
+        var userData = await user_controller.user_all_details_func().exec();
+        response.render('ejs/groups.ejs', { adminDetails: groupAdminData, userDetails: userData, memberDetails: groupMemberData });
+
+    } else {
+        var accessDeniedGroup = request.session.accessDeniedGroup = {
+            accessDenied: 'You must be logged in to view Groups!'
+        };
+        request.session.save();
+        return response.render('index.ejs', accessDeniedGroup);
+    }
+};
+/*
 //only allow access of GROUPS to a logged in user
-exports.groups = function(request, response) {
-	if(request.session.user) {
-    response.render(path.resolve('view/ejs/groups.ejs')) 
+exports.groups = function (request, response) {
+    if (request.session.user) {
+        //userAllDetails();
+        var all_groups = group_controller.group_all_details_func();
+        //console.log(all_users);
+        all_groups.exec(function (err, resp) {
+            if (err)
+                response.status(404).send();
+            else {
+                response.render('ejs/groups.ejs', { groupDetails: resp });
+            }
+        });
+
     } else {
-        var accessDeniedGroup =request.session.accessDeniedGroup = {
-                accessDenied: 'You must be logged in to view Groups!'
-            };
-            request.session.save();
-            return response.render('index.ejs', accessDeniedGroup);
-        }
-};
+        var accessDeniedGroup = request.session.accessDeniedGroup = {
+            accessDenied: 'You must be logged in to view Groups!'
+        };
+        request.session.save();
+        return response.render('index.ejs', accessDeniedGroup);
+    }
+}; */
 

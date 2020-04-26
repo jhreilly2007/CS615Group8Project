@@ -6,7 +6,7 @@ body {
 /*--- navigation bar ---*/
 .navbar {
   /*background:#515A5A;*/
-  background:#0394fc;;
+  background:#0394fc;
 }
 .nav-link,
 .navbar-brand {
@@ -33,8 +33,8 @@ body {
 }
 
 .about {
-  background-image: url('../images/about.jpg');
-  background-size: cover;
+  /* background-image: url('../images/about.jpg');
+  background-size: cover; */
   background-position: center;
   position: relative;
 }
@@ -47,7 +47,7 @@ body {
 }
 
 .tasks {
-  background-image: url('../images/tasks.jpeg');
+  /* background-image: url('../images/tasks.jpeg');  */
   background-size: cover;
   background-position: center;
   position: relative;
