@@ -8,7 +8,6 @@ const GridFsStorage = require('multer-gridfs-storage');
 const crypto = require('crypto');
 var env = require('dotenv').config();
 
-
 // SET STORAGE
 var storage = new GridFsStorage({
 	url: process.env.DB_URI,
@@ -18,11 +17,13 @@ var storage = new GridFsStorage({
 				if (err) {
 					return reject(err);
 				}
+				console.log(file);
 				//const filename = buf.toString('hex') + path.extname(file.originalname);
 				const filename = file.originalname;
 				const fileInfo = {
 					filename: filename,
-					bucketName: 'uploads'
+					bucketName: 'uploads',
+					metadata: []
 				};
 				resolve(fileInfo);
 			});
@@ -82,6 +83,8 @@ router.post('/uploadfile', upload.single('myFile'), task_controller.uploadfile);
 router.get('/upload/files', task_controller.getFiles);
 
 router.get('/upload/files/:id', task_controller.getFileById);
+
+router.get('/delete/file/:id', task_controller.deleteFileById);
 
 /****Login Routes****/
 //http://localhost:3000/user/signup
