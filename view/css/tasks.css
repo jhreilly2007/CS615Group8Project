@@ -115,6 +115,18 @@ body {
 	cursor:pointer;
 	text-decoration: none;
 }
+.task-list-item .href {
+	color : white;
+	margin-right: 10px;
+	cursor:pointer;
+	text-decoration: none;
+}
+.task-list-item .trash {
+	color : white;
+	margin-right: 10px;
+	cursor:pointer;
+	text-decoration: none;
+}
 .task-list-item .remove {
 	color : #d91f11;
 	margin-right: 5px;

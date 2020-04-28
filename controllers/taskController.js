@@ -51,7 +51,7 @@ exports.data_addtask = async function (request, response) {
 exports.data_findtask = function (request, response) {
     if (request.session.user) {
         Task.find({ $or: [{ email: request.session.user.email, privacy: 'Private' }, { privacy: 'Public' }] }, function (err, tasks) {
-            console.log(tasks);
+            //console.log(tasks);
             response.render("ejs/tasks.ejs", { myTasks: tasks });
         });
     } else {
@@ -87,7 +87,7 @@ exports.get_edit = function (request, response) {
 
 //Update TASK List Post Function
 exports.post_edit = function (request, response) {
-    console.log(request.body.privacy)
+    //console.log(request.body.privacy)
     var id = request.params.id;
     if (request.body.priority == null) {
         request.body.priority = request.body.default;
@@ -134,20 +134,27 @@ exports.getFiles = function (request, response) {
 };
 
 //retrieve a file by using a filename and gridfs-stream
+//retrieve a file by using a filename and gridfs-stream
 exports.getFileById = function (request, response) {
-    gfs.files.findOne({ filename: request.params.id }, (err, file) => {
+    var id = request.params.id;
 
-        console.log(file); //for testing
-        //read the ouput to the browser
-        const readstream = gfs.createReadStream(file.filename);
+    gfs.files.findOne({ _id: ObjectId(id) }, (err, file) => {
+        const readstream = gfs.createReadStream(file._id);
 
         readstream.on('error', function (err) {
-
             console.log('There is a Problem!', error);
             throw err;
         });
-        console.log(response);
         readstream.pipe(response);
+    });
+};
+
+exports.deleteFileById = function (request, response) {
+    var id = request.params.id;
+
+    gfs.files.remove({ _id: ObjectId(id) }, (err) => {
+        if (err) response.status(500).send(err);
+        response.redirect('/upload/files');
     });
 };
 
