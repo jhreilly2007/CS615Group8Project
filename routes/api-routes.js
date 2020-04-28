@@ -23,7 +23,10 @@ var storage = new GridFsStorage({
 				const fileInfo = {
 					filename: filename,
 					bucketName: 'uploads',
-					metadata: []
+					metadata: {
+						author: "empty",
+						task: "empty"
+					}
 				};
 				resolve(fileInfo);
 			});
