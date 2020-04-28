@@ -42,16 +42,20 @@
   	  <div class="d-flex flex-column bd-highlight mb-3 task-box">
 
 		  <h2>List of Uploaded Files</h2>
+		  
+		  <a href="/tasks">
+		  	<span class="fa fa-angle-double-left back"></span>
+		  </a>
+
 		  <ul class="task-list">
 			<% myFiles.forEach(details => { %>
 			<li class="task-list-item">
 				<div class="task-list-item-name">
-					<%= details.filename%><br/>
+					<a href="/upload/files/<%= details._id %>" class="href"><%= details.filename%></a><br/>
 				</div>
 
-				<a href="/upload/files/<%= details.filename %>" class="edit">
-					open file
-					<!--<span class="fas fa-eye"></span>-->
+				<a href="/delete/file/<%= details._id %>" class="href">
+					<span class="fas fa-trash-alt"></span>
 				</a>
 			</li>
 			<% }) %>
