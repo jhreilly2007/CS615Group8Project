@@ -10,7 +10,7 @@ var user_controller = require('../controllers/userController');
 //Determine which group user belongs to
 var group_controller = require('../controllers/groupController');
 
-
+//sends the correct file when endpoint is used
 exports.index = function (request, response) {
     response.render(path.resolve('view/index.ejs'));
 };
@@ -40,6 +40,7 @@ exports.groups = async function (request, response) {
         response.render('ejs/groups.ejs', { adminDetails: groupAdminData, userDetails: userData, memberDetails: groupMemberData });
 
     } else {
+        //check user is logged in
         var accessDeniedGroup = request.session.accessDeniedGroup = {
             accessDenied: 'You must be logged in to view Groups!'
         };

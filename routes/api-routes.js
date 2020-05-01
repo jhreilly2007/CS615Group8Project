@@ -3,26 +3,31 @@ var express = require('express');
 var router = express.Router();
 //used to direct specific paths
 const path = require("path");
+//node middleware for handling multi-part form data
 const multer = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
 const crypto = require('crypto');
 var env = require('dotenv').config();
 
 // SET STORAGE
+//GridFS storage engine for Multer to store 
+//uploaded files directly to MongoDb
+// Create a storage object with db config
 var storage = new GridFsStorage({
 	url: process.env.DB_URI,
-	file: (req, file) => {
+	file: (request, file) => {
 		return new Promise((resolve, reject) => {
+			//the function cryto.randomBytes is used to 
+			//generate names
 			crypto.randomBytes(16, (err, buf) => {
 				if (err) {
 					return reject(err);
 				}
-				console.log(file);
-				//const filename = buf.toString('hex') + path.extname(file.originalname);
 				const filename = file.originalname;
 				const fileInfo = {
 					filename: filename,
 					bucketName: 'uploads',
+					//setting metadata to empty to manipulate in function
 					metadata: {
 						author: "empty",
 						task: "empty"
@@ -33,7 +38,7 @@ var storage = new GridFsStorage({
 		});
 	}
 });
-
+// Set multer storage engine to the newly created storage option
 const upload = multer({ storage });
 
 //Required Controllers
@@ -75,17 +80,27 @@ router.post('/tasks', task_controller.data_addtask);
 
 router.get('/tasks', task_controller.data_findtask);
 
+router.get('/task/archive', task_controller.task_archive);
+
 router.get('/tasks/remove/:id', task_controller.task_delete);
 
 router.get('/tasks/edit/:id', task_controller.get_edit);
 
 router.post('/tasks/edit/:id', task_controller.post_edit);
 
+router.get('/task/completed/:id', task_controller.get_complete);
+
+router.get('/task/reactivate/:id', task_controller.get_active);
+
+//uploading file using mutler (enctype="multipart/form-data")
+//upload uses Multer storage engine set to the storage option created above
 router.post('/uploadfile', upload.single('myFile'), task_controller.uploadfile);
 
 router.get('/upload/files', task_controller.getFiles);
 
 router.get('/upload/files/:id', task_controller.getFileById);
+
+router.get('/upload/getfiles/:name', task_controller.getFilesByTaskName);
 
 router.get('/delete/file/:id', task_controller.deleteFileById);
 
