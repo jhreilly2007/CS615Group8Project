@@ -58,6 +58,11 @@ exports.group_member_details_func = function (currentuser) {
     return result;
 };
 
+// mishaal's code for displaying group name in tasks dropdown menu
+exports.group_name_func = function (request, response) {
+    var result = Group.find({ groupname: request.body.name });
+    return result;
+};
 
 //This functionality is not being used in the application...yet!
 //Update database function //responses are temporary for testing

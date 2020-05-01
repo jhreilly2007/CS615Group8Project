@@ -17,7 +17,7 @@ body {
 }
 
 .add{
-	color: #515A5A;
+	color: rgb(64, 102, 102);
 }
 
 .update{
@@ -25,7 +25,7 @@ body {
 }
 
 .upload{
-	color : #515A5A;
+	color : rgb(0, 0, 0);
 	text-align: center;
 }
 .back{
@@ -71,7 +71,7 @@ body {
 	margin-top: 10px;
 	border: none;
 	border-radius: 5px;
-	background: #515A5A;
+	background: #0394fc;
 	display: flex;
 	flex-direction: row;
 }
