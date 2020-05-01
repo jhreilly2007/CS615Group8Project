@@ -1,6 +1,7 @@
 //This is the Controller in the MVC
 
 var Task = require('../models/taskModel');
+var Group = require('../models/groupModel');
 const path = require("path");
 const multer = require('multer');
 var fs = require('fs-extra');
@@ -37,7 +38,8 @@ exports.data_addtask = async function (request, response) {
         description: request.body.description,
         resource: request.body.resource,
         priority: request.body.priority,
-        privacy: request.body.privacy
+        privacy: request.body.privacy,
+        group: request.body.group
     });
     try {
         await task.save();
@@ -49,12 +51,18 @@ exports.data_addtask = async function (request, response) {
 };
 
 // GET Task List
-exports.data_findtask = function (request, response) {
+exports.data_findtask = async function (request, response) {
     if (request.session.user) {
-        Task.find({ $or: [{ email: request.session.user.email, privacy: 'Private' }, { privacy: 'Public' }] }, function (err, tasks) {
-            //console.log(tasks);
-            response.render("ejs/tasks.ejs", { myTasks: tasks });
-        });
+        // store all group names of which a user is either an admin or member
+        var myGroups = await Group.find({ $or: [{ admin: request.session.user.email }, { members: request.session.user.email }] }).exec();
+        var group_names = myGroups.map(group => group.name);
+        // console.log(new Set(group_names));
+        //remove duplicates
+        var uniqueArray = Array.from(new Set(group_names));
+        //display those tasks to the current user that are either i. public ii. user's private task iii. group task of which a user is a member
+        var tasks = await Task.find({ $or: [{ group: { $in: uniqueArray }, privacy: 'Group' }, { email: request.session.user.email, privacy: 'Private' }, { privacy: 'Public' }] }).exec();
+        var groups = await Group.find({}).exec();
+        response.render("ejs/tasks.ejs", { myTasks: tasks, myGroups: groups });
     } else {
         var accessDeniedTask = request.session.accessDeniedTask = {
             accessDeniedTask: 'You must be logged in to view Tasks List!'
@@ -110,8 +118,8 @@ exports.post_edit = function (request, response) {
 }
 
 //Upload a file usng gridfs-stream
-exports.uploadfile = function(request, response){
-    if(typeof request.file==='undefined'){
+exports.uploadfile = function (request, response) {
+    if (typeof request.file === 'undefined') {
         response.send("Please upload a file <a href='/tasks'>Go Back</a>");
     }else{
     request.file.filename = request.file.filename + path.extname(request.file.originalname)
@@ -135,19 +143,19 @@ exports.uploadfile = function(request, response){
 
     console.log('File Successfully uploaded to Database');
     response.redirect('/upload/files')//for now just to show all files uploaded
-}
+    }
 };
 
 //Retrieve all files stored by filename
 exports.getFiles = function (request, response) {
 
     db.collection('uploads.files').find().toArray((err, result) => {
-        var allFiles= result.map(files => files);
-      
+        var allFiles = result.map(files => files);
+
         if (err) return
         console.log(err)        
         //response.send(allFiles)//send a list of all files 
-        response.render('ejs/allFiles.ejs', { myFiles: allFiles});
+        response.render('ejs/allFiles.ejs', { myFiles: allFiles });
     })
 };
 

@@ -47,6 +47,14 @@ exports.groups = async function (request, response) {
         return response.render('index.ejs', accessDeniedGroup);
     }
 };
+
+// functionality handling group-tasks
+exports.group_task = async function(request,response){
+    var group_name = await group_controller.group_name_func(request).exec();
+    // console.log(group_name);
+    response.render('ejs/tasks.ejs', { groupName: group_name });
+}
+
 /*
 //only allow access of GROUPS to a logged in user
 exports.groups = function (request, response) {
