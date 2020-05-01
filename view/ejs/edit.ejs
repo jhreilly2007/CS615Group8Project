@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  
+
+<!--using bootstrap for styling and awesome fonts for icons-->  
 <head>
 
 	<title>Edit Task List</title>
@@ -21,6 +22,7 @@
 	<div class="d-flex flex-column bd-highlight mb-3 task-box">
 		<div class="p-2 bd-highlight">
       		<ul class="task-list">
+      			<!--display all task attributes and input boxes to change content-->
       			<% myTasks.forEach(details => { %>
 				<!--<% if (details._id == idTask) { %>-->
 				
@@ -40,7 +42,7 @@
 				 	<li class="edit-list-item"><h6>Resources:</h6>
 						<input type="text" value="<%= details.resource %>" name="resource">
 					</li>
-
+					<!--edit task priority-->
 					<li class="edit-list-item">
 						<label for="TaskPriority"><h6><%= details.priority %> Priority</h6></label>
 						
@@ -59,7 +61,7 @@
 					</li>
 					
 					<li class="edit-list-item">
-						<label for="TaskPrivacy" class="col-form-label">Task Privacy:</label>
+						<label for="TaskPrivacy" class="col-form-label">Task Privacy: </label>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="privacy" id="inlineRadio1"
 							value="Private" onclick="showDiv()">
@@ -70,18 +72,19 @@
 							value="Public" onclick="showDiv()">
 							<label class="form-check-label" for="inlineRadio2">Public</label>
 						</div>
+						<!--<div class="form-check form-check-inline">
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="privacy" id="inlineRadio3" value="Group" onclick="showDiv()">
 							<label class="form-check-label" for="inlineRadio3">Group</label>
 						</div>
 						
-						<div id="select_group" class="form-group">
+						<div id="select_group" class="form-group">-->
 							
 							<!-- code for showing dropdown menu with group members list-->
 							<!-- // functionality having issue at the moment in displaying members list -->
-							<select name="group" class="selectpicker form-control mt-4" data-live-search="true" data-actions-box="true" multiple title="Choose group..." data-header="Select Group" id="group">
+						<!--	<select name="group" class="selectpicker form-control mt-4" data-live-search="true" data-actions-box="true" multiple title="Choose group..." data-header="Select Group" id="group">-->
 								<!--send popup alert login to see Welcome Page-->
-								<% if ( typeof myGroups !== 'undefined' ) {
+							<!--	<% if ( typeof myGroups !== 'undefined' ) {
 									var groupFinal;
 									groupFinal = myGroups;
 									%>
@@ -92,13 +95,14 @@
 											groupFinal = '';
 										}%>
 							</select>
-						</div>
+						</div>-->
 					</li>
 					<li class="edit-list-item">
 						<button type="submit" class="btn btn-primary btn-sm btn-block">Update</button>
 					</li>
 					
 					<input style="visibility: hidden" type="text" value="<%= details.priority %>" name="default" readonly>
+					<input style="visibility: hidden" type="text" value="<%= details.email %>" name="email" readonly>
 					<input style="visibility: hidden" type="text" value="<%= details.privacy %>" name="currentprivacy" readonly>
 				</form>
 				<br/><br/>

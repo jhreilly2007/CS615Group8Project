@@ -1,4 +1,5 @@
 //This is the Model in the MVC
+//User Schema
 
 var mongoose = require('mongoose');
 //requesta a schema

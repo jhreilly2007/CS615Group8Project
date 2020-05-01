@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 
 // Setup mongoDB Schema
 var GroupSchema = new Schema({
-    name: { type: String, required: true, max: 100 },
+    name: { type: String, required: true, unique: true, max: 100 },
     members:  [{type: String}],
     admin: { type: String }
 });
