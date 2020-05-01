@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 var db = mongoose.connection;
 const Grid = require("gridfs-stream");
 const { MongoClient, ObjectId } = require('mongodb');
+var session = require('express-session')
 
 //Configuration for retrieving file from mongodb 
 //using gridfs-stream
@@ -121,10 +122,28 @@ exports.post_edit = function (request, response) {
 exports.uploadfile = function (request, response) {
     if (typeof request.file === 'undefined') {
         response.send("Please upload a file <a href='/tasks'>Go Back</a>");
-    } else {
-        request.file.filename = request.file.filename + path.extname(request.file.originalname)
-        console.log('File Successfully uploaded to Database');
-        response.redirect('/upload/files')//for now just to show all files uploaded
+    }else{
+    request.file.filename = request.file.filename + path.extname(request.file.originalname)
+
+    //add metatdata to hold user id
+    var myquery = { "metadata.author": "empty" };
+    var newvalues = {$set: {"metadata.author": request.session.user.email} };
+    db.collection("uploads.files").updateOne(myquery, newvalues, 
+        function(err, res) {
+            if (err) throw err;
+            console.log("MetaData Author Updated");
+        });
+    //add metatdata to hold details of associated task
+    var myquery = { "metadata.task": "empty" };
+    var newvalues = {$set: {"metadata.task": request.body.myTask} };
+    db.collection("uploads.files").updateOne(myquery, newvalues, 
+        function(err, res) {
+            if (err) throw err;
+            console.log("MetaData Tasks Updated");
+        });
+
+    console.log('File Successfully uploaded to Database');
+    response.redirect('/upload/files')//for now just to show all files uploaded
     }
 };
 
@@ -135,8 +154,7 @@ exports.getFiles = function (request, response) {
         var allFiles = result.map(files => files);
 
         if (err) return
-        console.log(err)
-
+        console.log(err)        
         //response.send(allFiles)//send a list of all files 
         response.render('ejs/allFiles.ejs', { myFiles: allFiles });
     })
