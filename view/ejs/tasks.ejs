@@ -45,7 +45,6 @@
 </head>
 
 <body>
-	<!-- Button trigger modal col-xs-12 col-sm-6 col-lg-6 col-md-6 -->
 	<div class=" flex-column bd-highlight mb-3 ">
 		<div class="col-lg-12"><br />
 			<button type="button" style="float:right" class="btn btn-primary" data-toggle="modal"
@@ -77,16 +76,17 @@
 						</div>
 						<div>
 							<form action="/uploadfile" enctype="multipart/form-data" method="POST">
+								<input style="visibility: hidden" type="text" name="myTask" value="<%= details.name %>" />
 								<input type="file" name="myFile" />
-								<input type="submit" value="Upload a file" />
+								<input type="submit" value="Upload a file"/>
 							</form><br />
 						</div>
 						<a href="/tasks/edit/<%= details._id %>" class="edit">
 							<span class="fas fa-edit"></span>
-							</a>
-							<a href="/tasks/remove/<%= details._id %>" class="remove">
-								<span class="fas fa-times"></span>
-							</a>
+						</a>
+						<a href="/tasks/remove/<%= details._id %>" class="remove">
+							<span class="fas fa-times"></span>
+						</a>
 					</li>
 					<% }) %>
 				</ul>
