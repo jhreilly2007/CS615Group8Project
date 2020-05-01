@@ -62,7 +62,8 @@ exports.data_findtask = async function (request, response) {
         //display those tasks to the current user that are either i. public ii. user's private task iii. group task of which a user is a member
         var tasks = await Task.find({ $or: [{ group: { $in: uniqueArray }, privacy: 'Group' }, { email: request.session.user.email, privacy: 'Private' }, { privacy: 'Public' }] }).exec();
         var groups = await Group.find({}).exec();
-        response.render("ejs/tasks.ejs", { myTasks: tasks, myGroups: groups });
+        response.render("ejs/tasks.ejs", { myTasks: tasks, myGroups: groups }); 
+
     } else {
         var accessDeniedTask = request.session.accessDeniedTask = {
             accessDeniedTask: 'You must be logged in to view Tasks List!'
