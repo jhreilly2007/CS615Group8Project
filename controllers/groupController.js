@@ -25,7 +25,7 @@ exports.group_create = function (request, response) {
             };
             request.session.save();
             //response.render('ejs/groups.ejs', { userDetails: undefined }, dataEntryError);
-
+            response.status(500).send();
         } else {
             console.log("added");
             var dataEntrySuccess = request.session.dataEntrySuccess = {
@@ -33,6 +33,7 @@ exports.group_create = function (request, response) {
             };
             request.session.save();
             //response.render('ejs/groups.ejs', { userDetails: undefined }, dataEntrySuccess);
+            response.status(201).send();
         }
     })
 };

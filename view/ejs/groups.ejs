@@ -184,8 +184,11 @@
         });
       });
       $.get("http://localhost:3000/user/details", function (result) {
-        $.post("http://localhost:3000/group/create", { name: gpName, members: grpMembers, admin: result.email }, function (res) {
-          console.log(res);
+        $.post("http://localhost:3000/group/create", { name: gpName, members: grpMembers, admin: result.email }, function () {
+          //console.log(res);
+          $('#groupModal').modal("toggle");
+          alert("Congratulations " + gpName + " Is created!!");
+
         });
       });
     }
