@@ -9,6 +9,7 @@ var db = mongoose.connection;
 const Grid = require("gridfs-stream");
 const { MongoClient, ObjectId } = require('mongodb');
 var session = require('express-session')
+var group_controller = require('./groupController');
 
 //Configuration for retrieving file from mongodb 
 //using gridfs-stream
@@ -42,7 +43,7 @@ exports.data_addtask = async function (request, response) {
         privacy: request.body.privacy,
         status: "active",
         //createdby:request.session.user.email,
-        completedBy:"still active",
+        completedBy: "still active",
         group: request.body.group
     });
     try {
@@ -66,7 +67,7 @@ exports.data_findtask = async function (request, response) {
         //display those tasks to the current user that are either i. public ii. user's private task iii. group task of which a user is a member
         var tasks = await Task.find({ $or: [{ group: { $in: uniqueArray }, privacy: 'Group' }, { email: request.session.user.email, privacy: 'Private' }, { privacy: 'Public' }] }).exec();
         var groups = await Group.find({}).exec();
-        response.render("ejs/tasks.ejs", { myTasks: tasks, myGroups: groups }); 
+        response.render("ejs/tasks.ejs", { myTasks: tasks, myGroups: groups });
 
     } else {
         //users must be logged in to access, if not they are redirected
@@ -93,13 +94,14 @@ exports.task_delete = function (request, response) {
 //Update Task 
 //This function finds the task to edit in mongodb by ID and returns the 
 //details of the task for editing
-exports.get_edit = function (request, response) {
+exports.get_edit = async function (request, response) {
     var id = request.params.id;
+    var group_name = await group_controller.group_names_func().exec();
     Task.find({}, function (err, tasks) {
         if (err) {
             return response.send(500, err);
         }
-        response.render('ejs/edit.ejs', { myTasks: tasks, idTask: id });
+        response.render('ejs/edit.ejs', { myTasks: tasks, idTask: id, myGroups: group_name });
     });
 }
 
@@ -128,7 +130,8 @@ exports.post_edit = function (request, response) {
             description: request.body.description,
             resource: request.body.resource,
             priority: request.body.priority,
-            privacy: request.body.privacy
+            privacy: request.body.privacy,
+            group: request.body.group
         }, err => {
             if (err) return response.send(500, err);
             response.redirect('/tasks');
@@ -141,30 +144,30 @@ exports.post_edit = function (request, response) {
 exports.uploadfile = function (request, response) {
     if (typeof request.file === 'undefined') {
         response.send("Please upload a file <a href='/tasks'>Go Back</a>");
-    }else{
-    request.file.filename = request.file.filename + path.extname(request.file.originalname)
+    } else {
+        request.file.filename = request.file.filename + path.extname(request.file.originalname)
 
-    //add metatdata to hold user id. This will tell us who uploaded the file
-    var myquery = { "metadata.author": "empty" };
-    var newvalues = {$set: {"metadata.author": request.session.user.email} };
-    db.collection("uploads.files").updateOne(myquery, newvalues, 
-        function(err, res) {
-            if (err) throw err;
-            console.log("MetaData Author Updated");
-        });
-    //add metatdata to hold details of associated task
-    var myquery = { "metadata.task": "empty" };
-    var newvalues = {$set: {"metadata.task": request.body.myTask} };
-    db.collection("uploads.files").updateOne(myquery, newvalues, 
-        function(err, res) {
-            if (err) throw err;
-            console.log("MetaData Tasks Updated");
-        });
+        //add metatdata to hold user id. This will tell us who uploaded the file
+        var myquery = { "metadata.author": "empty" };
+        var newvalues = { $set: { "metadata.author": request.session.user.email } };
+        db.collection("uploads.files").updateOne(myquery, newvalues,
+            function (err, res) {
+                if (err) throw err;
+                console.log("MetaData Author Updated");
+            });
+        //add metatdata to hold details of associated task
+        var myquery = { "metadata.task": "empty" };
+        var newvalues = { $set: { "metadata.task": request.body.myTask } };
+        db.collection("uploads.files").updateOne(myquery, newvalues,
+            function (err, res) {
+                if (err) throw err;
+                console.log("MetaData Tasks Updated");
+            });
 
-    console.log('File Successfully uploaded to Database');
-    //not ideal but works 
-    response.write("<script>alert('File uploaded sucessfully');window.location='tasks'</script>");
-    //response.redirect('/upload/files')//for now just to show all files uploaded
+        console.log('File Successfully uploaded to Database');
+        //not ideal but works 
+        response.write("<script>alert('File uploaded sucessfully');window.location='tasks'</script>");
+        //response.redirect('/upload/files')//for now just to show all files uploaded
     }
 };
 
@@ -177,7 +180,7 @@ exports.getFiles = function (request, response) {
         var allFiles = result.map(files => files);
 
         if (err) return
-        console.log(err)        
+        console.log(err)
         //response.send(allFiles)//send a list of all files 
         response.render('ejs/allFiles.ejs', { myFiles: allFiles });
     })
@@ -192,7 +195,7 @@ exports.getFilesByTaskName = function (request, response) {
         var allFiles = result.map(files => files);
 
         if (err) return
-        console.log(err)        
+        console.log(err)
         //response.send(allFiles)//send a list of all files 
         response.render('ejs/allFiles.ejs', { myFiles: allFiles });
     })
@@ -230,26 +233,26 @@ exports.get_complete = function (request, response) {
         if (err) {
             return response.send(500, err);
         }
-    //if status is active change to completed
-    //uses the mongo updateOne function to set the new value
-    var myquery = { "status": "active" };
-    var newvalues = {$set: {"status": "completed"} };
-    db.collection("tasks").updateOne(myquery, newvalues, 
-        function(err, res) {
-            if (err) throw err;
-            console.log("Task is now completed");
-        });
+        //if status is active change to completed
+        //uses the mongo updateOne function to set the new value
+        var myquery = { "status": "active" };
+        var newvalues = { $set: { "status": "completed" } };
+        db.collection("tasks").updateOne(myquery, newvalues,
+            function (err, res) {
+                if (err) throw err;
+                console.log("Task is now completed");
+            });
 
-    //Enter the name of the user that completed the task
-    //uses the mongo updateOne function to set the new value
-    var myquery = { "completedBy": "still active" };
-    var newvalues = {$set: {"completedBy": request.session.user.email} };
-    db.collection("tasks").updateOne(myquery, newvalues, 
-        function(err, res) {
-            if (err) throw err;
-            console.log(request.session.user.email+" Completed the task");
-        });
-    response.redirect('/tasks');
+        //Enter the name of the user that completed the task
+        //uses the mongo updateOne function to set the new value
+        var myquery = { "completedBy": "still active" };
+        var newvalues = { $set: { "completedBy": request.session.user.email } };
+        db.collection("tasks").updateOne(myquery, newvalues,
+            function (err, res) {
+                if (err) throw err;
+                console.log(request.session.user.email + " Completed the task");
+            });
+        response.redirect('/tasks');
     });
 }
 //Function to change the status of a task to active
@@ -259,26 +262,26 @@ exports.get_active = function (request, response) {
         if (err) {
             return response.send(500, err);
         }
-    //if status is completed change to active
-    //uses the mongo updateOne function to set the new value
-    var myquery = { "status": "completed" };
-    var newvalues = {$set: {"status": "active"} };
-    db.collection("tasks").updateOne(myquery, newvalues, 
-        function(err, res) {
-            if (err) throw err;
-            console.log("Task is now re activated");
-        });
+        //if status is completed change to active
+        //uses the mongo updateOne function to set the new value
+        var myquery = { "status": "completed" };
+        var newvalues = { $set: { "status": "active" } };
+        db.collection("tasks").updateOne(myquery, newvalues,
+            function (err, res) {
+                if (err) throw err;
+                console.log("Task is now re activated");
+            });
 
-    //Set the completed by back to "still active instead of username"
-    //uses the mongo updateOne function to set the new value
-    var myquery = { "completedBy":{$ne: null} };
-    var newvalues = {$set: {"completedBy": "still active"} };
-    db.collection("tasks").updateOne(myquery, newvalues, 
-        function(err, res) {
-            if (err) throw err;
-            console.log(request.session.user.email+" Completed the task");
-        });
-    response.redirect('/task/archive');
+        //Set the completed by back to "still active instead of username"
+        //uses the mongo updateOne function to set the new value
+        var myquery = { "completedBy": { $ne: null } };
+        var newvalues = { $set: { "completedBy": "still active" } };
+        db.collection("tasks").updateOne(myquery, newvalues,
+            function (err, res) {
+                if (err) throw err;
+                console.log(request.session.user.email + " Completed the task");
+            });
+        response.redirect('/task/archive');
     });
 }
 
@@ -288,13 +291,12 @@ exports.task_archive = async function (request, response) {
         // store all group names of which a user is either an admin or member
         var myGroups = await Group.find({ $or: [{ admin: request.session.user.email }, { members: request.session.user.email }] }).exec();
         var group_names = myGroups.map(group => group.name);
-        // console.log(new Set(group_names));
         //remove duplicates
         var uniqueArray = Array.from(new Set(group_names));
         //display those tasks to the current user that are either i. public ii. user's private task iii. group task of which a user is a member
         var tasks = await Task.find({ $or: [{ group: { $in: uniqueArray }, privacy: 'Group' }, { email: request.session.user.email, privacy: 'Private' }, { privacy: 'Public' }] }).exec();
         var groups = await Group.find({}).exec();
-        response.render("ejs/archivedtasks.ejs", { myTasks: tasks, myGroups: groups }); 
+        response.render("ejs/archivedtasks.ejs", { myTasks: tasks, myGroups: groups });
 
     } else {
         //user must be logged in or redirected

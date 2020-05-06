@@ -91,7 +91,6 @@ exports.user_details = function (request, response) {
     }
 };
 
-
 exports.user_all_details = function (request, response) {
     // User.find({ $or: [{ fName: request.session.user.fName}] }, function (err, userName) {
     User.find({}, function (err, detail) {

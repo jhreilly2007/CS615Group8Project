@@ -31,16 +31,18 @@ exports.welcome = function (request, response) {
     }
 };
 
-//only allow access of all Users to a logged in user
+//only allow access of Groups to a logged in user
 exports.groups = async function (request, response) {
+    //check user is logged in
     if (request.session.user) {
         var groupAdminData = await group_controller.group_admin_details_func(request.session.user).exec();
         var groupMemberData = await group_controller.group_member_details_func(request.session.user).exec();
         var userData = await user_controller.user_all_details_func().exec();
+        //display group page to the authorized user
         response.render('ejs/groups.ejs', { adminDetails: groupAdminData, userDetails: userData, memberDetails: groupMemberData });
 
     } else {
-        //check user is logged in
+        //otherwise display the appropriate error to the user
         var accessDeniedGroup = request.session.accessDeniedGroup = {
             accessDenied: 'You must be logged in to view Groups!'
         };
@@ -50,33 +52,13 @@ exports.groups = async function (request, response) {
 };
 
 // functionality handling group-tasks
-exports.group_task = async function(request,response){
+exports.group_task = async function (request, response) {
     var group_name = await group_controller.group_name_func(request).exec();
-    // console.log(group_name);
     response.render('ejs/tasks.ejs', { groupName: group_name });
-}
+};
 
-/*
-//only allow access of GROUPS to a logged in user
-exports.groups = function (request, response) {
-    if (request.session.user) {
-        //userAllDetails();
-        var all_groups = group_controller.group_all_details_func();
-        //console.log(all_users);
-        all_groups.exec(function (err, resp) {
-            if (err)
-                response.status(404).send();
-            else {
-                response.render('ejs/groups.ejs', { groupDetails: resp });
-            }
-        });
-
-    } else {
-        var accessDeniedGroup = request.session.accessDeniedGroup = {
-            accessDenied: 'You must be logged in to view Groups!'
-        };
-        request.session.save();
-        return response.render('index.ejs', accessDeniedGroup);
-    }
-}; */
-
+// // functionality handling group-tasks: edit.ejs
+exports.group_list = async function (request, response) {
+    var group_name = await group_controller.group_name_func(request).exec();
+    response.render('ejs/edit.ejs', { groupName: group_name });
+};
