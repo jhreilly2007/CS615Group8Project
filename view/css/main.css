@@ -1,3 +1,18 @@
+/* FontAwesome for working BootSnippet :> */
+
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+#team {
+    background: #eee !important;
+    
+
+}
+
+.scroll-enabler{
+  height: 400px;
+  max-height: 900px;
+  overflow-y: scroll;
+}
+
 body {
   padding: 0;
   margin: 0;

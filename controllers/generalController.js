@@ -31,7 +31,7 @@ exports.welcome = function (request, response) {
     }
 };
 
-//only allow access of Groups to a logged in user
+//only allow access of all other Users to a logged in user for group creation purpose.
 exports.groups = async function (request, response) {
     //check user is logged in
     if (request.session.user) {

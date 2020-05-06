@@ -72,7 +72,8 @@ router.get('/group/:id', group_controller.group_details);
 router.put('/group/:id/update', group_controller.group_update);
 
 //http://localhost:3000/group/id/delete
-router.delete('/group/:id/delete', group_controller.group_delete);
+// router.delete('/group/delete/:id', group_controller.group_delete);
+router.get('/group/delete/:id', group_controller.group_delete);
 
 /****TASK routes****/
 //http://localhost:3000/tasks

@@ -48,19 +48,19 @@ exports.group_details = function (request, response) {
     })
 };
 
-//Function returning all groups where user is admin
+//Function returning all group which are created by user.
 exports.group_admin_details_func = function (currentuser) {
     var result = Group.find({ admin: currentuser.email });
     return result;
 };
 
-//Function returning all groups where user is a member
+//Function returning all group name which user is a member.
 exports.group_member_details_func = function (currentuser) {
     var result = Group.find({ members: currentuser.email });
     return result;
 };
 
-// Function displaying group names in tasks' group-select dropdown menu
+// Code for displaying group name in tasks dropdown menu
 exports.group_name_func = function (request, response) {
     var result = Group.find({ groupname: request.body.name });
     return result;
@@ -84,18 +84,16 @@ exports.group_update = function (request, response) {
         });
 };
 
-//This functionality is not being used in the application...yet!
-//Delete Entry //responses are temporary for testing
+//Function executed to delete the group
 exports.group_delete = function (request, response) {
-
-    Group.findByIdAndRemove(request.params.id, function (err) {
-        //temporary response
-        // if (err) response.status(400).send(err + ' <a href=\"http://localhost:3000\">Back to Home<\/a>');
-        // response.send('Deleted successfully! <a href=\"http://localhost:3000\">Back to Home<\/a>');
+    var id = request.params.id;
+    console.log(request.params.id);
+    console.log(request);
+    Group.findByIdAndRemove(id, err => {
         if (err) {
             return response.send(500, err);
         }
-        response.redirect("/group");
-    })
+        response.redirect("/groups");
+    });
 };
 
