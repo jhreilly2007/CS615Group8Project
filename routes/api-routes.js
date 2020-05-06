@@ -119,10 +119,6 @@ router.get('/user/details', user_controller.user_details);
 
 router.get('/user/all', user_controller.user_all_details);
 
-// ///////////
-// router.post('/user/reset-password', user_controller.reset_password);
-// ///////////////
-
 module.exports = router;
 
 

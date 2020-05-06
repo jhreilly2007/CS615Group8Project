@@ -24,101 +24,85 @@
       		<ul class="task-list">
       			<!--display all task attributes and input boxes to change content-->
       			<% myTasks.forEach(details => { %>
-				<!--<% if (details._id == idTask) { %>-->
-				
-				<form action="/tasks/edit/<%= details._id %>" method="POST">
-					<h4>Edit Task:<br/> <%= details.name %></h4>
-					<a href="/tasks">
-						<button class="btn btn-primary hBack" type="button" style="background-color:rgb(129, 128, 216)">Back</button>
-					</a>
-					<li class="edit-list-item"><h6>Task Name: </h6>
-						<input type="text" value="<%= details.name %>" name="name">
-					</li>
+					<!--<% if (details._id == idTask) { %>-->
+					<form action="/tasks/edit/<%= details._id %>" method="POST">
+						<h4>Edit Task:<br/> <%= details.name %></h4>
+						<a href="/tasks">
+							<span class="fa fa-angle-double-left back"> Back to Tasks</span>
+						</a>
+						<li class="edit-list-item"><h6>Task Name: </h6>
+							<input type="text" value="<%= details.name %>" name="name">
+						</li>
 
-				 	<li class="edit-list-item"><h6>Task Description:</h6>
-						<input type="text" value="<%= details.description %>" name="description">
-					</li>
-				 
-				 	<li class="edit-list-item"><h6>Resources:</h6>
-						<input type="text" value="<%= details.resource %>" name="resource">
-					</li>
-					<!--edit task priority-->
-					<li class="edit-list-item">
-						<label for="TaskPriority"><h6><%= details.priority %> Priority</h6></label>
-						
-						<div class="form-check form-check-inline">
-							<input type="radio" name="priority" id="Radio1" value="High">
-							<label for="inlineRadio1">High</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input type="radio" name="priority" id="Radio2" value="Medium">
-							<label for="inlineRadio2">Medium</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input type="radio" name="priority" id="Radio3" value="Low">
-							<label for="inlineRadio3">Low</label>
-						</div>
-					</li>
+						<li class="edit-list-item"><h6>Task Description:</h6>
+							<input type="text" value="<%= details.description %>" name="description">
+						</li>
 					
-					<li class="edit-list-item">
-						<label for="TaskPrivacy" class="col-form-label">Task Privacy: </label>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="privacy" id="inlineRadio1"
-							value="Private" onclick="showDiv()">
-							<label class="form-check-label" for="inlineRadio1">Private</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="privacy" id="inlineRadio2"
-							value="Public" onclick="showDiv()">
-							<label class="form-check-label" for="inlineRadio2">Public</label>
-						</div>
-						<!--<div class="form-check form-check-inline">
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="privacy" id="inlineRadio3" value="Group" onclick="showDiv()">
-							<label class="form-check-label" for="inlineRadio3">Group</label>
-						</div>
+						<li class="edit-list-item"><h6>Resources:</h6>
+							<input type="text" value="<%= details.resource %>" name="resource">
+						</li>
+						<!--edit task priority-->
+						<li class="edit-list-item">
+							<label for="TaskPriority"><h6>Priority: <%= details.priority %></h6></label>
+							<div class="form-check form-check-inline">
+								<input type="radio" name="priority" id="Radio1" value="High">
+								<label for="inlineRadio1">High</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input type="radio" name="priority" id="Radio2" value="Medium">
+								<label for="inlineRadio2">Medium</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input type="radio" name="priority" id="Radio3" value="Low">
+								<label for="inlineRadio3">Low</label>
+							</div>
+						</li>
 						
-						<div id="select_group" class="form-group">-->
-							
-							<!-- code for showing dropdown menu with group members list-->
-							<!-- // functionality having issue at the moment in displaying members list -->
-						<!--	<select name="group" class="selectpicker form-control mt-4" data-live-search="true" data-actions-box="true" multiple title="Choose group..." data-header="Select Group" id="group">-->
-								<!--send popup alert login to see Welcome Page-->
-							<!--	<% if ( typeof myGroups !== 'undefined' ) {
-									var groupFinal;
-									groupFinal = myGroups;
-									%>
-									<% for(var i=0; i < myGroups.length; i++) {%>
-										<option value="<%=myGroups[i].name%>"><%=myGroups[i].name%></option>
-										<% } %>
-										<% } else{
-											groupFinal = '';
-										}%>
-							</select>
-						</div>-->
-					</li>
-					<li class="edit-list-item">
-						<button type="submit" class="btn btn-primary btn-sm btn-block">Update</button>
-					</li>
-					
-					<input style="visibility: hidden" type="text" value="<%= details.priority %>" name="default" readonly>
-					<input style="visibility: hidden" type="text" value="<%= details.email %>" name="email" readonly>
-					<input style="visibility: hidden" type="text" value="<%= details.privacy %>" name="currentprivacy" readonly>
-				</form>
-				<br/><br/>
+						<li class="edit-list-item">
+							<label for="TaskPrivacy" class="col-form-label"><h6>Task Privacy:</h6></label>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="privacy" id="inlineRadio1"
+									value="Private" onclick="showDiv()">
+								<label class="form-check-label" for="inlineRadio1">Private</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="privacy" id="inlineRadio2"
+									value="Public" onclick="showDiv()">
+								<label class="form-check-label" for="inlineRadio2">Public</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="privacy" id="inlineRadio3"
+									value="Group" onclick="showDiv()">
+								<label class="form-check-label" for="inlineRadio3">Group</label>
+							</div>
+							<div id="select_group" class="form-group">
 
+								<!-- code for showing dropdown menu -->
+								<select name="group" class="selectpicker form-control mt-4" data-live-search="true" data-actions-box="true" multiple title="Choose group..." data-header="Select Group" id="group">
+									<!--send popup alert login to see Welcome Page-->
+									<% if ( typeof myGroups !== 'undefined' ) {
+										var groupFinal;
+										groupFinal = myGroups;
+										%>
+										<% for(var i=0; i < myGroups.length; i++) {%>
+											<option value="<%=myGroups[i].name%>"><%=myGroups[i].name%></option>
+											<% } %>
+											<% } else{
+												groupFinal = '';
+											}%>
+								</select>
+							</div>
+						</li>
+						<li class="edit-list-item">
+							<button type="submit" class="btn btn-primary btn-sm btn-block">Update</button>
+						</li>
+						
+						<input style="visibility: hidden" type="text" value="<%= details.priority %>" name="default" readonly>
+						<input style="visibility: hidden" type="text" value="<%= details.email %>" name="email" readonly>
+						<input style="visibility: hidden" type="text" value="<%= details.privacy %>" name="currentprivacy" readonly>
+					</form>
+					<br/><br/>
 				<!--<% }else { %>
-					<li class="edit-list-item">
-						<div class="edit-list-item-name">
-							<%= details.name %>
-						</div>
-						<a href="/tasks/edit/<%= details._id %>" class="edit">
-							<span class="fas fa-edit"></span>
-						</a>
-						<a href="/tasks/remove/<%= details._id %>" class="remove">
-							<span class="fas fa-times"></span>
-						</a>
-					</li>
 					<% } %>-->
 				<% }) %>
 			</ul>
@@ -126,10 +110,10 @@
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	<script src=" https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 	crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 		
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"

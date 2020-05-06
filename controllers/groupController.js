@@ -12,7 +12,7 @@ exports.test = function (request, response) {
 
 //Create Database Entry
 exports.group_create = function (request, response) {
-    console.log(request.body);
+    // console.log(request.body);
     var group = new Group({
         name: request.body.name,
         members: request.body["members[]"],
@@ -27,7 +27,7 @@ exports.group_create = function (request, response) {
             //response.render('ejs/groups.ejs', { userDetails: undefined }, dataEntryError);
             response.status(500).send();
         } else {
-            console.log("added");
+            // console.log("added");
             var dataEntrySuccess = request.session.dataEntrySuccess = {
                 dataEntrySuccess: 'Data Successfully Added'
             };
@@ -54,7 +54,7 @@ exports.group_admin_details_func = function (currentuser) {
     return result;
 };
 
-//Code returning all group name which user is a member.
+//Function returning all group name which user is a member.
 exports.group_member_details_func = function (currentuser) {
     var result = Group.find({ members: currentuser.email });
     return result;
@@ -66,16 +66,22 @@ exports.group_name_func = function (request, response) {
     return result;
 };
 
+// Function displaying group names in tasks' group-select dropdown menu
+exports.group_names_func = function () {
+    var result = Group.find({});
+    return result;
+};
 
+//This functionality is not being used in the application...yet!
 //Update database function //responses are temporary for testing
 exports.group_update = function (request, response) {
-    Group.findByIdAndUpdate(request.params.id, 
-        {$set: request.body}, 
+    Group.findByIdAndUpdate(request.params.id,
+        { $set: request.body },
         function (err, data) {
-        //temporary response
-        if (err) response.status(400).send(err + ' <a href=\"http://localhost:3000\">Back to Home<\/a>');
-        response.send('Group Successfully Updated <a href=\"http://localhost:3000\">Back to Home<\/a>');
-    });
+            //temporary response
+            if (err) response.status(400).send(err + ' <a href=\"http://localhost:3000\">Back to Home<\/a>');
+            response.send('Group Successfully Updated <a href=\"http://localhost:3000\">Back to Home<\/a>');
+        });
 };
 
 //Function executed to delete the group
