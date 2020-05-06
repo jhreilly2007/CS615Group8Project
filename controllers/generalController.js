@@ -31,7 +31,7 @@ exports.welcome = function (request, response) {
     }
 };
 
-//only allow access of all Users to a logged in user
+//only allow access of all other Users to a logged in user for group creation purpose.
 exports.groups = async function (request, response) {
     if (request.session.user) {
         var groupAdminData = await group_controller.group_admin_details_func(request.session.user).exec();
@@ -55,28 +55,4 @@ exports.group_task = async function(request,response){
     // console.log(group_name);
     response.render('ejs/tasks.ejs', { groupName: group_name });
 }
-
-/*
-//only allow access of GROUPS to a logged in user
-exports.groups = function (request, response) {
-    if (request.session.user) {
-        //userAllDetails();
-        var all_groups = group_controller.group_all_details_func();
-        //console.log(all_users);
-        all_groups.exec(function (err, resp) {
-            if (err)
-                response.status(404).send();
-            else {
-                response.render('ejs/groups.ejs', { groupDetails: resp });
-            }
-        });
-
-    } else {
-        var accessDeniedGroup = request.session.accessDeniedGroup = {
-            accessDenied: 'You must be logged in to view Groups!'
-        };
-        request.session.save();
-        return response.render('index.ejs', accessDeniedGroup);
-    }
-}; */
 
