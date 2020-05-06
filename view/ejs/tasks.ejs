@@ -54,10 +54,6 @@
 			<button type="button" style="float:right" class="btn btn-primary" data-toggle="modal"
 				data-target="#exampleModal">
 				<i class="fa fa-plus" aria-hidden="true"></i> Create New Task</button>
-		<!--</div><br /><br />-->
-
-	<!--<div class=" flex-column bd-highlight mb-3 ">-->
-		<!--<div class="col-lg-12"><br />-->
 			<button type="button" style="float:left" class="btn btn-primary" aria-hidden="true"></i><a href="/task/archive"style="color:white">View Completed Tasks</a></button>
 		</div><br /><br />
 
@@ -70,47 +66,43 @@
 				<ul class="task-list">
 					<!-- loop through the tasks -->
 					<% myTasks.forEach(details => { %>
-
-					<!--only display active tasks-->
-					<% if(details.status==='active') {%>
-					<li class="task-list-item">
-						<div class="task-list-item-name">
-							<h6>Task Name</h6><%= details.name %><br />
-							<h6><br />Task Description</h6><%= details.description %><br />
-							<h6><br />Task Resource (Optional) </h6><%= details.resource %><br />
-							<h6><br />Task Priority (Optional)</h6><%= details.priority %>
-							<h6><br />Task Privacy </h6><%= details.privacy %>
-							<!-- check if the task is 'group-based', then display the group names in the section -->
-							<% if(details.privacy==='Group') {%>
-								<h6><br /> Group Names </h6><%=  details.group %>
-								<!-- <h6><br /> Group Names </h6><%= details.group.map(grp=>grp.name).join(",") %> -->
+						<!--only display active tasks-->
+						<% if(details.status==='active') {%>
+							<li class="task-list-item">
+								<div class="task-list-item-name">
+									<h6>Task Name</h6><%= details.name %><br />
+									<h6><br />Task Description</h6><%= details.description %><br />
+									<h6><br />Task Resource (Optional) </h6><%= details.resource %><br />
+									<h6><br />Task Priority (Optional)</h6><%= details.priority %>
+									<h6><br />Task Privacy </h6><%= details.privacy %>
+									<!-- check if the task is 'group-based', then display the group names in the section -->
+									<% if(details.privacy==='Group') {%>
+										<h6><br /> Group Names </h6><%=  details.group %>
+									<%}%>
+										<h6><br />Completed By </h6><%= details.completedBy %><br>
+										<h6><br />View Uploaded Resources </h6>
+										<a href="/upload/getfiles/<%= details.name %>" class="upload">
+											<span class="far fa-file-alt"></span>
+										</a><br><br>
+									<button><a href="/task/completed/<%= details._id %>">Mark as complete</a></button>
+								</div>
+								
+								<div>
+									<form action="/uploadfile" enctype="multipart/form-data" method="POST">
+										<input style="visibility: hidden" type="text" name="myTask" value="<%= details.name %>" />
+										<input type="file" name="myFile" />
+										<input type="submit" value="Upload a file"/>
+									</form><br />
+								</div>
+								<a href="/tasks/edit/<%= details._id %>" class="edit">
+									<span class="fas fa-edit"></span>
+								</a>
+								<a href="/tasks/remove/<%= details._id %>" class="remove">
+									<span class="fas fa-trash"></span>
+								</a>
+							</li>
 							<%}%>
-							<h6><br />Completed By </h6><%= details.completedBy %>
-							<br>
-							<h6><br />View Uploaded Resources </h6>
-							<a href="/upload/getfiles/<%= details.name %>" class="upload">
-								<span class="far fa-file-alt"></span>
-							</a>
-							<br><br>
-
-							<button><a href="/task/completed/<%= details._id %>">Mark as complete</a></button>
-						</div>
-						<div>
-							<form action="/uploadfile" enctype="multipart/form-data" method="POST">
-								<input style="visibility: hidden" type="text" name="myTask" value="<%= details.name %>" />
-								<input type="file" name="myFile" />
-								<input type="submit" value="Upload a file"/>
-							</form><br />
-						</div>
-						<a href="/tasks/edit/<%= details._id %>" class="edit">
-							<span class="fas fa-edit"></span>
-						</a>
-						<a href="/tasks/remove/<%= details._id %>" class="remove">
-							<span class="fas fa-times"></span>
-						</a>
-					</li>
-					<%}%>
-					<% }) %>
+						<% }) %>
 				</ul>
 			</div>
 		</div>

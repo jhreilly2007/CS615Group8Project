@@ -87,8 +87,8 @@ exports.group_update = function (request, response) {
 //Function executed to delete the group
 exports.group_delete = function (request, response) {
     var id = request.params.id;
-    console.log(request.params.id);
-    console.log(request);
+    // console.log(request.params.id);
+    // console.log(request);
     Group.findByIdAndRemove(id, err => {
         if (err) {
             return response.send(500, err);
